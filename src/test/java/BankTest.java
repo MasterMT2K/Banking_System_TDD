@@ -93,7 +93,7 @@ public class BankTest {
 
     @Test
     void withdrawal_from_cd_account() {
-        bank.addAccount(ID, APR, CDBALANCE);
+        bank.addAccount(ID, APR, BALANCE);
         bank.withdrawalFromAccount(ID, WITHDRAWAL);
         assertEquals(BALANCE, bank.getAccounts().get(ID).getAccountBalance());
     }
