@@ -13,8 +13,14 @@ public class Bank {
         return accounts;
     }
 
-    public void addAccount(String accountId, double accountApr, double accountBalance) {
-        accounts.put(accountId, new Account(accountId, accountApr, accountBalance));
+    public void addAccount(String accountId, double accountApr, double accountBalance, String accountType) {
+        if (accountType.equalsIgnoreCase("checking")) {
+            accounts.put(accountId, new CheckingAccount(accountId, accountApr, accountBalance));
+        } else if (accountType.equalsIgnoreCase("savings")) {
+            accounts.put(accountId, new SavingsAccount(accountId, accountApr, accountBalance));
+        } else if (accountType.equalsIgnoreCase("cd")) {
+            accounts.put(accountId, new CDAccount(accountId, accountApr, accountBalance));
+        }
     }
 
     public void depositToAccount(String accountId, double depositAmount) {
