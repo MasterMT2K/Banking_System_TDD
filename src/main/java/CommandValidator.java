@@ -47,7 +47,12 @@ public class CommandValidator {
     }
 
     private boolean validateCreateCDAccount(String command) {
-        return validateCreateAccountID(command) && validateAccountAPR(command) && validateCDCreateAmount(command);
+        String[] commandArgs = command.split(" ");
+        if (commandArgs.length == 5) {
+            return validateCreateAccountID(command) && validateAccountAPR(command) && validateCDCreateAmount(command);
+        } else {
+            return false;
+        }
     }
 
     public boolean validateCreateAccountID(String command) {
@@ -68,7 +73,21 @@ public class CommandValidator {
 
     public boolean validateAccountAPR(String command) {
         String[] commandArgs = command.split(" ");
-        return Double.parseDouble(commandArgs[3]) >= MIN_APR && Double.parseDouble(commandArgs[3]) <= MAX_APR;
+        if ((commandArgs.length == 4 || commandArgs.length == 5) && validateAccountAPRIsDouble(command)) {
+            return Double.parseDouble(commandArgs[3]) >= MIN_APR && Double.parseDouble(commandArgs[3]) <= MAX_APR;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean validateAccountAPRIsDouble(String command) {
+        String[] commandArgs = command.split(" ");
+        try {
+            double IdValue = Double.parseDouble(commandArgs[3]);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public boolean validateCDCreateAmount(String command) {
