@@ -22,10 +22,6 @@ public class CommandValidator {
     }
 
     public boolean validateCreateAccount(String command) {
-        return checkCreateAccountType(command);
-    }
-
-    public boolean checkCreateAccountType(String command) {
         String[] commandArgs = command.split(" ");
         if (commandArgs[1].equalsIgnoreCase("checking")) {
             return validateCreateCheckingAccount(command);
@@ -96,7 +92,16 @@ public class CommandValidator {
     }
 
     public boolean validateDepositToAccount(String command) {
-        return true;
+        return (validateDepositAccountID(command) && validateDepositAccountAmount(command));
     }
 
+    public boolean validateDepositAccountID(String command) {
+        String[] commandArgs = command.split(" ");
+        return (bank.accountExistsByID(commandArgs[1]) && commandArgs[1].length() == 8 && validateAccountIDIsInteger(command));
+    }
+
+    public boolean validateDepositAccountAmount(String command) {
+        String[] commandArgs = command.split(" ");
+        return bank.accountDepositWithinBounds(commandArgs[1], Double.parseDouble(commandArgs[2]));
+    }
 }

@@ -34,4 +34,8 @@ public class Bank {
     public boolean accountExistsByID(String Id) {
         return getAccounts().get(Id) != null;
     }
+
+    public boolean accountDepositWithinBounds(String accountId, double depositAmount) {
+        return accounts.get(accountId).checkDepositBounds(depositAmount);
+    }
 }

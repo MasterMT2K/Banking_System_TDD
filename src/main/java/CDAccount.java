@@ -23,4 +23,9 @@ public class CDAccount extends Account {
     public void withdrawal(double withdrawalAmount) {
         super.withdrawal(withdrawalAmount);
     }
+
+    @Override
+    public boolean checkDepositBounds(double depositAmount) {
+        return false;
+    }
 }

@@ -298,4 +298,53 @@ public class CommandValidatorTest {
         boolean actual = commandValidator.checkCommandType("Creame savings 12345678 0.6");
         assertFalse(actual);
     }
+
+    @Test
+    void valid_deposit_into_savings_account() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 500");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_deposit_into_checking_account() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 500");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_deposit_minimum_into_savings_account() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 0");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_deposit_minimum_into_checking_account() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 0");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_deposit_maximum_into_savings_account() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 2500");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_deposit_maximum_into_checking_account() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 1000");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_deposit_into_account_with_trailing_whitespace() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 1000        ");
+        assertTrue(actual);
+    }
 }
