@@ -52,7 +52,18 @@ public class CommandValidator {
 
     public boolean validateCreateAccountID(String command) {
         String[] commandArgs = command.split(" ");
-        return !bank.accountExistsByID(commandArgs[2]);
+        return (!bank.accountExistsByID(commandArgs[2]) && commandArgs[2].length() == 8 && validateAccountIDIsInteger(command));
+    }
+
+    //citation for this check method: https://stackabuse.com/java-check-if-string-is-a-number/
+    public boolean validateAccountIDIsInteger(String command) {
+        String[] commandArgs = command.split(" ");
+        try {
+            int IdValue = Integer.parseInt(commandArgs[2]);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public boolean validateAccountAPR(String command) {
