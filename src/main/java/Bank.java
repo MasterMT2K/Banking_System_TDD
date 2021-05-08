@@ -30,4 +30,8 @@ public class Bank {
     public void withdrawalFromAccount(String accountId, double withdrawalAmount) {
         accounts.get(accountId).withdrawal(withdrawalAmount);
     }
+
+    public boolean accountExistsByID(String Id) {
+        return getAccounts().get(Id) != null;
+    }
 }
