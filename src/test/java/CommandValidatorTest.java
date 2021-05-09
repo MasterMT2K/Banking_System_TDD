@@ -101,19 +101,19 @@ public class CommandValidatorTest {
     }
 
     @Test
-    void valid_create_savings_case_sensitive() {
+    void valid_create_savings_case_insensitive() {
         boolean actual = commandValidator.checkCommandType("CrEATe sAVings 12345678 0.6");
         assertTrue(actual);
     }
 
     @Test
-    void valid_create_checking_case_sensitive() {
+    void valid_create_checking_case_insensitive() {
         boolean actual = commandValidator.checkCommandType("CrEATe CHEcking 12345678 0.6");
         assertTrue(actual);
     }
 
     @Test
-    void valid_create_cd_case_sensitive() {
+    void valid_create_cd_case_insensitive() {
         boolean actual = commandValidator.checkCommandType("CreAtE cD 12345678 10.0 10000");
         assertTrue(actual);
     }
@@ -346,5 +346,109 @@ public class CommandValidatorTest {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
         boolean actual = commandValidator.checkCommandType("Deposit 12345678 1000        ");
         assertTrue(actual);
+    }
+
+    @Test
+    void valid_deposit_into_account_case_insensitive() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("DePoSiT 12345678 1000");
+        assertTrue(actual);
+    }
+
+    @Test
+    void deposit_into_account_with_whitespace_between_arguments_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit    12345678    1000");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_account_with_no_spaces_between_arguments_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit123456781000");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_cd_account_is_invalid() {
+        bank.addAccount(ID, APR, CDBALANCE, CD);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 1000");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_savings_account_with_negative_amount_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 -1000");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_checking_account_with_negative_amount_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 -1000");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_savings_account_with_more_than_maximum_amount_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 2501");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_checking_account_with_more_than_maximum_amount_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 1001");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_account_with_missing_deposit_command_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("12345678 1000");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_account_with_missing_account_id_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit 1000");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_account_with_missing_deposit_amount_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_account_with_typo_in_deposit_command_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Depsit 12345678 1000");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_account_that_does_not_exist_is_invalid() {
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 1000");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_account_with_alphanumeric_in_account_id_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit abcd5678 1000");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_account_with_alphanumeric_in_deposit_amount_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 10ef0");
+        assertFalse(actual);
     }
 }

@@ -92,7 +92,8 @@ public class CommandValidator {
     }
 
     public boolean validateDepositToAccount(String command) {
-        return (validateDepositAccountID(command) && validateDepositAccountAmount(command));
+        String[] commandArgs = command.split(" ");
+        return (commandArgs.length == 3 && validateDepositAccountID(command) && validateDepositAccountAmount(command));
     }
 
     public boolean validateDepositAccountID(String command) {
@@ -102,6 +103,6 @@ public class CommandValidator {
 
     public boolean validateDepositAccountAmount(String command) {
         String[] commandArgs = command.split(" ");
-        return bank.accountDepositWithinBounds(commandArgs[1], Double.parseDouble(commandArgs[2]));
+        return (bank.accountDepositWithinBounds(commandArgs[1], Double.parseDouble(commandArgs[2])));
     }
 }
