@@ -2,15 +2,31 @@ public class CommandValidator {
 
     private final double MIN_APR = 0;
     private final double MAX_APR = 10;
+    CreateCommandValidator createCommandValidator;
+    DepositCommandValidator depositCommandValidator;
     private Bank bank;
 
     public CommandValidator(Bank bank) {
         this.bank = bank;
     }
 
+    public boolean validateCreateAccount(String command) {
+        return true;
+    }
+
+    public boolean validateDepositToAccount(String command) {
+        return true;
+    }
+
     public boolean checkCommandType(String command) {
         String[] commandArgs = command.split(" ");
-        return true;
+        if (commandArgs[0].equalsIgnoreCase("create")) {
+            return createCommandValidator.validateCreateAccount(command);
+        } else if (commandArgs[0].equalsIgnoreCase("deposit")) {
+            return depositCommandValidator.validateDepositToAccount(command);
+        } else {
+            return false;
+        }
     }
 
     public boolean validateCreateAccountID(String command) {

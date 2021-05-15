@@ -1,6 +1,8 @@
 public class DepositCommandValidator extends CommandValidator {
 
     private Bank bank;
+    private CreateCommandValidator createCommandValidator;
+    private DepositCommandValidator depositCommandValidator;
 
     public DepositCommandValidator(Bank bank) {
         super(bank);
@@ -17,6 +19,7 @@ public class DepositCommandValidator extends CommandValidator {
         }
     }
 
+    @Override
     public boolean validateDepositToAccount(String command) {
         String[] commandArgs = command.split(" ");
         return (commandArgs.length == 3 && validateDepositAccountID(command) && validateDepositAccountAmount(command));

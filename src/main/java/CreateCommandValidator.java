@@ -21,6 +21,7 @@ public class CreateCommandValidator extends CommandValidator {
         }
     }
 
+    @Override
     public boolean validateCreateAccount(String command) {
         String[] commandArgs = command.split(" ");
         if (commandArgs[1].equalsIgnoreCase("checking")) {
