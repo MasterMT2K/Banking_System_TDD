@@ -1,10 +1,7 @@
 public class CreateCommandProcessor extends CommandProcessor {
 
-    private Bank bank;
-
     public CreateCommandProcessor(Bank bank) {
         super(bank);
-        this.bank = bank;
     }
 
     @Override
@@ -12,12 +9,9 @@ public class CreateCommandProcessor extends CommandProcessor {
         String[] commandArgs = command.split(" ");
         if (commandArgs[0].equalsIgnoreCase("create")) {
             createAccount(command);
-        } else if (commandArgs[0].equalsIgnoreCase("deposit")) {
-            depositToAccount(command);
         }
     }
 
-    @Override
     public void createAccount(String command) {
         String[] commandArgs = command.split(" ");
         String accountType = commandArgs[1];

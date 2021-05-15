@@ -1,12 +1,7 @@
 public class DepositCommandValidator extends CommandValidator {
 
-    private Bank bank;
-    private CreateCommandValidator createCommandValidator;
-    private DepositCommandValidator depositCommandValidator;
-
     public DepositCommandValidator(Bank bank) {
         super(bank);
-        this.bank = bank;
     }
 
     @Override
@@ -19,7 +14,6 @@ public class DepositCommandValidator extends CommandValidator {
         }
     }
 
-    @Override
     public boolean validateDepositToAccount(String command) {
         String[] commandArgs = command.split(" ");
         return (commandArgs.length == 3 && validateDepositAccountID(command) && validateDepositAccountAmount(command));
@@ -27,11 +21,11 @@ public class DepositCommandValidator extends CommandValidator {
 
     public boolean validateDepositAccountID(String command) {
         String[] commandArgs = command.split(" ");
-        return (bank.accountExistsByID(commandArgs[1]) && commandArgs[1].length() == 8 && validateAccountIDIsInteger(command));
+        return (this.bank.accountExistsByID(commandArgs[1]) && commandArgs[1].length() == 8 && validateAccountIDIsInteger(command));
     }
 
     public boolean validateDepositAccountAmount(String command) {
         String[] commandArgs = command.split(" ");
-        return (bank.accountDepositWithinBounds(commandArgs[1], Double.parseDouble(commandArgs[2])));
+        return (this.bank.accountDepositWithinBounds(commandArgs[1], Double.parseDouble(commandArgs[2])));
     }
 }
