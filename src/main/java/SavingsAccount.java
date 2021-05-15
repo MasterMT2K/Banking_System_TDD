@@ -1,5 +1,8 @@
 public class SavingsAccount extends Account {
 
+    private double MIN_DEPOSIT = 0;
+    private double MAX_DEPOSIT = 2500;
+
     public SavingsAccount(String accountId, double accountApr, double accountBalance) {
         super(accountId, accountApr, accountBalance);
     }
@@ -27,5 +30,10 @@ public class SavingsAccount extends Account {
     @Override
     public void withdrawal(double withdrawalAmount) {
         super.withdrawal(withdrawalAmount);
+    }
+
+    @Override
+    public boolean checkDepositBounds(double depositAmount) {
+        return depositAmount >= MIN_DEPOSIT && depositAmount <= MAX_DEPOSIT;
     }
 }
