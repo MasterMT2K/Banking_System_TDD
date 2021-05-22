@@ -40,11 +40,4 @@ public class DepositCommandProcessorTest {
         assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
         assertEquals(BALANCE + DEPOSIT_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
     }
-
-    @Test
-    void deposit_command_creates_new_checking_account_with_correct_balance() {
-        depositCommandProcessor.checkCommandType("Deposit 12345678 100");
-        assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
-        assertEquals(BALANCE + DEPOSIT_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
-    }
 }
