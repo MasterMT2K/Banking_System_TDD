@@ -1,9 +1,11 @@
-public class CheckingAccount extends Account {
+package banking;
+
+public class SavingsAccount extends Account {
 
     private double MIN_DEPOSIT = 0;
-    private double MAX_DEPOSIT = 1000;
+    private double MAX_DEPOSIT = 2500;
 
-    public CheckingAccount(String accountId, double accountApr, double accountBalance) {
+    public SavingsAccount(String accountId, double accountApr, double accountBalance) {
         super(accountId, accountApr, accountBalance);
     }
 
@@ -35,10 +37,5 @@ public class CheckingAccount extends Account {
     @Override
     public boolean checkDepositBounds(double depositAmount) {
         return depositAmount >= MIN_DEPOSIT && depositAmount <= MAX_DEPOSIT;
-    }
-
-    @Override
-    public boolean checkCreateBounds(double createAmount) {
-        return (createAmount == 0);
     }
 }

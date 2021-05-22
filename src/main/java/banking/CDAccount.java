@@ -1,9 +1,11 @@
-public class SavingsAccount extends Account {
+package banking;
 
-    private double MIN_DEPOSIT = 0;
-    private double MAX_DEPOSIT = 2500;
+public class CDAccount extends Account {
 
-    public SavingsAccount(String accountId, double accountApr, double accountBalance) {
+    private final double MIN_CREATE_AMOUNT = 1000;
+    private final double MAX_CREATE_AMOUNT = 10000;
+
+    public CDAccount(String accountId, double accountApr, double accountBalance) {
         super(accountId, accountApr, accountBalance);
     }
 
@@ -23,17 +25,17 @@ public class SavingsAccount extends Account {
     }
 
     @Override
-    public void deposit(double depositAmount) {
-        super.deposit(depositAmount);
-    }
-
-    @Override
     public void withdrawal(double withdrawalAmount) {
         super.withdrawal(withdrawalAmount);
     }
 
     @Override
     public boolean checkDepositBounds(double depositAmount) {
-        return depositAmount >= MIN_DEPOSIT && depositAmount <= MAX_DEPOSIT;
+        return false;
+    }
+
+    @Override
+    public boolean checkCreateBounds(double createAmount) {
+        return createAmount >= MIN_CREATE_AMOUNT && createAmount <= MAX_CREATE_AMOUNT;
     }
 }

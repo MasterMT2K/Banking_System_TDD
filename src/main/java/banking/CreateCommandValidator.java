@@ -1,3 +1,5 @@
+package banking;
+
 public class CreateCommandValidator extends CommandValidator {
 
     private final double MIN_APR = 0;
