@@ -38,4 +38,8 @@ public class Bank {
     public boolean accountDepositWithinBounds(String accountId, double depositAmount) {
         return accounts.get(accountId).checkDepositBounds(depositAmount);
     }
+
+    public boolean accountCreateWithinBounds(String accountId, double depositAmount) {
+        return accounts.get(accountId).checkDepositBounds(depositAmount);
+    }
 }

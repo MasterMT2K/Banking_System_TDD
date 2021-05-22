@@ -4,11 +4,9 @@ public class CreateCommandValidator extends CommandValidator {
     private final double MAX_APR = 10;
     private final double MIN_CDSTARTAMOUNT = 1000;
     private final double MAX_CDSTARTAMOUNT = 10000;
-    private Bank bank;
 
     public CreateCommandValidator(Bank bank) {
         super(bank);
-        this.bank = bank;
     }
 
     @Override
@@ -54,7 +52,7 @@ public class CreateCommandValidator extends CommandValidator {
     @Override
     public boolean validateCreateAccountID(String command) {
         String[] commandArgs = command.split(" ");
-        return (!bank.accountExistsByID(commandArgs[2]) && commandArgs[2].length() == 8 && validateAccountIDIsInteger(command));
+        return (!this.bank.accountExistsByID(commandArgs[2]) && commandArgs[2].length() == 8 && validateAccountIDIsInteger(command));
     }
 
     @Override

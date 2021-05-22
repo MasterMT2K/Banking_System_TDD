@@ -37,4 +37,8 @@ public abstract class Account {
     public boolean checkDepositBounds(double depositAmount) {
         return depositAmount >= MIN_DEPOSIT && depositAmount <= MAX_DEPOSIT;
     }
+
+    public boolean checkCreateBounds(double createAmount) {
+        return (createAmount == 0);
+    }
 }

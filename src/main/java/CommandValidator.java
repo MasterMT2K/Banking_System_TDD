@@ -2,15 +2,23 @@ public class CommandValidator {
 
     private final double MIN_APR = 0;
     private final double MAX_APR = 10;
-    private Bank bank;
+    Bank bank;
 
     public CommandValidator(Bank bank) {
         this.bank = bank;
     }
 
     public boolean checkCommandType(String command) {
+        CreateCommandValidator createCommandValidator = new CreateCommandValidator(bank);
+        DepositCommandValidator depositCommandValidator = new DepositCommandValidator(bank);
         String[] commandArgs = command.split(" ");
-        return true;
+        if (commandArgs[0].equalsIgnoreCase("create")) {
+            return createCommandValidator.checkCommandType(command);
+        } else if (commandArgs[0].equalsIgnoreCase("deposit")) {
+            return depositCommandValidator.checkCommandType(command);
+        } else {
+            return false;
+        }
     }
 
     public boolean validateCreateAccountID(String command) {

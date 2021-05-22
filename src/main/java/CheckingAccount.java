@@ -36,4 +36,9 @@ public class CheckingAccount extends Account {
     public boolean checkDepositBounds(double depositAmount) {
         return depositAmount >= MIN_DEPOSIT && depositAmount <= MAX_DEPOSIT;
     }
+
+    @Override
+    public boolean checkCreateBounds(double createAmount) {
+        return (createAmount == 0);
+    }
 }
