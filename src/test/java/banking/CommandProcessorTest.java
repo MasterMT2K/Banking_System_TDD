@@ -66,9 +66,12 @@ public class CommandProcessorTest {
     }
 
     @Test
-    void deposit_command_creates_new_checking_account_with_correct_balance() {
+    void deposit_twice_into_a_single_account_with_correct_balance() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        commandProcessor.checkCommandType("Deposit 12345678 100");
         commandProcessor.checkCommandType("Deposit 12345678 100");
         assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
-        assertEquals(BALANCE + DEPOSIT_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(BALANCE + DEPOSIT_AMOUNT + DEPOSIT_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
     }
 }
+
