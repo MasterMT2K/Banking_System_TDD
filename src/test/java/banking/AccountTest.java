@@ -119,4 +119,22 @@ public class AccountTest {
         cdAccount.withdrawal(LARGEWITHDRAWAL);
         assertEquals(0, cdAccount.getAccountBalance());
     }
+
+    @Test
+    void checking_account_balance_withdrawal_of_zero_with_balance_of_zero() {
+        checkingAccount.withdrawal(0);
+        assertEquals(0, checkingAccount.getAccountBalance());
+    }
+
+    @Test
+    void savings_account_balance_withdrawal_of_zero_with_balance_of_zero() {
+        savingsAccount.withdrawal(0);
+        assertEquals(0, savingsAccount.getAccountBalance());
+    }
+
+    @Test
+    void cd_account_balance_withdrawal_of_zero_with_balance_of_zero() {
+        cdAccount.withdrawal(0);
+        assertEquals(0, cdAccount.getAccountBalance());
+    }
 }

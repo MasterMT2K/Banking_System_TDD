@@ -25,8 +25,16 @@ public class CDAccount extends Account {
     }
 
     @Override
+    public void setAccountBalance(double newAccountBalance) {
+        super.setAccountBalance(newAccountBalance);
+    }
+
+    @Override
     public void withdrawal(double withdrawalAmount) {
-        super.withdrawal(withdrawalAmount);
+        double accountBalance = this.getAccountBalance();
+        if (withdrawalAmount >= accountBalance) {
+            this.setAccountBalance(0);
+        }
     }
 
     @Override

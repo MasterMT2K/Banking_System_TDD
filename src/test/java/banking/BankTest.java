@@ -101,45 +101,51 @@ public class BankTest {
     @Test
     void withdrawal_from_checking_account() {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.depositToAccount(ID, DEPOSIT);
         bank.withdrawalFromAccount(ID, WITHDRAWAL);
-        assertEquals(BALANCE, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(DEPOSIT - WITHDRAWAL, bank.getAccounts().get(ID).getAccountBalance());
     }
 
     @Test
     void withdrawal_twice_from_checking_account() {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.depositToAccount(ID, DEPOSIT);
         bank.withdrawalFromAccount(ID, WITHDRAWAL);
         bank.withdrawalFromAccount(ID, WITHDRAWAL);
-        assertEquals(BALANCE, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(DEPOSIT - WITHDRAWAL - WITHDRAWAL, bank.getAccounts().get(ID).getAccountBalance());
     }
 
     @Test
     void withdrawal_from_savings_account() {
         bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        bank.depositToAccount(ID, DEPOSIT);
         bank.withdrawalFromAccount(ID, WITHDRAWAL);
-        assertEquals(BALANCE, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(DEPOSIT - WITHDRAWAL, bank.getAccounts().get(ID).getAccountBalance());
     }
 
     @Test
     void withdrawal_twice_from_savings_account() {
         bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        bank.depositToAccount(ID, DEPOSIT);
         bank.withdrawalFromAccount(ID, WITHDRAWAL);
         bank.withdrawalFromAccount(ID, WITHDRAWAL);
-        assertEquals(BALANCE, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(DEPOSIT - WITHDRAWAL - WITHDRAWAL, bank.getAccounts().get(ID).getAccountBalance());
     }
 
     @Test
     void withdrawal_from_cd_account() {
         bank.addAccount(ID, APR, BALANCE, CD);
+        bank.depositToAccount(ID, DEPOSIT);
         bank.withdrawalFromAccount(ID, WITHDRAWAL);
-        assertEquals(BALANCE, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(DEPOSIT - WITHDRAWAL, bank.getAccounts().get(ID).getAccountBalance());
     }
 
     @Test
     void withdrawal_twice_from_cd_account() {
         bank.addAccount(ID, APR, BALANCE, CD);
+        bank.depositToAccount(ID, DEPOSIT);
         bank.withdrawalFromAccount(ID, WITHDRAWAL);
         bank.withdrawalFromAccount(ID, WITHDRAWAL);
-        assertEquals(BALANCE, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(DEPOSIT - WITHDRAWAL - WITHDRAWAL, bank.getAccounts().get(ID).getAccountBalance());
     }
 }

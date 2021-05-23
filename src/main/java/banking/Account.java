@@ -25,6 +25,10 @@ public abstract class Account {
         return accountBalance;
     }
 
+    public void setAccountBalance(double newAccountBalance) {
+        this.accountBalance = newAccountBalance;
+    }
+
     public void deposit(double depositAmount) {
         this.accountBalance += depositAmount;
     }
