@@ -177,4 +177,11 @@ public class DepositCommandValidatorTest {
         boolean actual = depositCommandValidator.checkCommandType("Deposit 12345678 10ef0");
         assertFalse(actual);
     }
+
+    @Test
+    void deposit_into_account_with_extra_arguments_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = depositCommandValidator.checkCommandType("Deposit 12345678 1000 1000");
+        assertFalse(actual);
+    }
 }

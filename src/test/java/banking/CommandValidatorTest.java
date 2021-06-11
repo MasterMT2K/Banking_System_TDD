@@ -301,6 +301,12 @@ public class CommandValidatorTest {
     }
 
     @Test
+    void create_account_with_extra_arguments_is_invalid() {
+        boolean actual = commandValidator.checkCommandType("Create savings 12345678 0.6 0.0");
+        assertFalse(actual);
+    }
+
+    @Test
     void valid_deposit_into_savings_account() {
         bank.addAccount(ID, APR, BALANCE, SAVINGS);
         boolean actual = commandValidator.checkCommandType("Deposit 12345678 500");
@@ -450,6 +456,103 @@ public class CommandValidatorTest {
     void deposit_into_account_with_alphanumeric_in_deposit_amount_is_invalid() {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
         boolean actual = commandValidator.checkCommandType("Deposit 12345678 10ef0");
+        assertFalse(actual);
+    }
+
+    @Test
+    void deposit_into_account_with_extra_arguments_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        boolean actual = commandValidator.checkCommandType("Deposit 12345678 1000 1000");
+        assertFalse(actual);
+    }
+
+    @Test
+    void valid_pass_time_command() {
+        boolean actual = commandValidator.checkCommandType("Pass 10");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_pass_time_command_with_minimum_months() {
+        boolean actual = commandValidator.checkCommandType("Pass 1");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_pass_time_command_with_maximum_months() {
+        boolean actual = commandValidator.checkCommandType("Pass 60");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_pass_time_command_is_case_insensitive() {
+        boolean actual = commandValidator.checkCommandType("PaSS 6");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_pass_time_command_with_trailing_spaces() {
+        boolean actual = commandValidator.checkCommandType("Pass 6    ");
+        assertTrue(actual);
+    }
+
+    @Test
+    void pass_time_with_zero_months_is_invalid() {
+        boolean actual = commandValidator.checkCommandType("Pass 0");
+        assertFalse(actual);
+    }
+
+    @Test
+    void pass_time_with_greater_than_maximum_months_is_invalid() {
+        boolean actual = commandValidator.checkCommandType("Pass 61");
+        assertFalse(actual);
+    }
+
+    @Test
+    void pass_time_with_double_value_is_invalid() {
+        boolean actual = commandValidator.checkCommandType("Pass 6.0");
+        assertFalse(actual);
+    }
+
+    @Test
+    void pass_time_with_non_numeric_value_is_invalid() {
+        boolean actual = commandValidator.checkCommandType("Pass happiness");
+        assertFalse(actual);
+    }
+
+    @Test
+    void pass_time_with_no_argument_spacing_is_invalid() {
+        boolean actual = commandValidator.checkCommandType("Pass5");
+        assertFalse(actual);
+    }
+
+    @Test
+    void pass_time_with_typo_in_pass_is_invalid() {
+        boolean actual = commandValidator.checkCommandType("Pas 5");
+        assertFalse(actual);
+    }
+
+    @Test
+    void pass_time_with_spaces_between_arguments_is_invalid() {
+        boolean actual = commandValidator.checkCommandType("Pass      5");
+        assertFalse(actual);
+    }
+
+    @Test
+    void pass_time_with_alphanumeric_in_pass_is_invalid() {
+        boolean actual = commandValidator.checkCommandType("P4ss 5");
+        assertFalse(actual);
+    }
+
+    @Test
+    void pass_time_with_unit_of_months_is_invalid() {
+        boolean actual = commandValidator.checkCommandType("Pass 5months");
+        assertFalse(actual);
+    }
+
+    @Test
+    void pass_time_with_incorrect_number_of_arguments_is_invalid() {
+        boolean actual = commandValidator.checkCommandType("Pass 5 months");
         assertFalse(actual);
     }
 }

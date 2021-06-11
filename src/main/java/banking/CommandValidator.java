@@ -13,11 +13,14 @@ public class CommandValidator {
     public boolean checkCommandType(String command) {
         CreateCommandValidator createCommandValidator = new CreateCommandValidator(bank);
         DepositCommandValidator depositCommandValidator = new DepositCommandValidator(bank);
+        PassCommandValidator passCommandValidator = new PassCommandValidator(bank);
         String[] commandArgs = command.split(" ");
         if (commandArgs[0].equalsIgnoreCase("create")) {
             return createCommandValidator.checkCommandType(command);
         } else if (commandArgs[0].equalsIgnoreCase("deposit")) {
             return depositCommandValidator.checkCommandType(command);
+        } else if (commandArgs[0].equalsIgnoreCase("pass")) {
+            return passCommandValidator.checkCommandType(command);
         } else {
             return false;
         }
@@ -54,6 +57,15 @@ public class CommandValidator {
             double IdValue = Double.parseDouble(commandArgs[3]);
             return true;
         } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public boolean validateNumberOfArguments(String command) {
+        String[] commandArgs = command.split(" ");
+        if (commandArgs.length == 4) {
+            return true;
+        } else {
             return false;
         }
     }

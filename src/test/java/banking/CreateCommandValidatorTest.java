@@ -295,4 +295,10 @@ public class CreateCommandValidatorTest {
         boolean actual = createCommandValidator.checkCommandType("Creame savings 12345678 0.6");
         assertFalse(actual);
     }
+
+    @Test
+    void create_account_with_extra_arguments_is_invalid() {
+        boolean actual = createCommandValidator.checkCommandType("Create savings 12345678 0.6 0.0");
+        assertFalse(actual);
+    }
 }

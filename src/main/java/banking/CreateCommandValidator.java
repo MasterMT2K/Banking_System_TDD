@@ -15,7 +15,7 @@ public class CreateCommandValidator extends CommandValidator {
     public boolean checkCommandType(String command) {
         String[] commandArgs = command.split(" ");
         if (commandArgs[0].equalsIgnoreCase("create")) {
-            return validateCreateAccount(command);
+            return validateNumberOfArguments(command);
         } else {
             return false;
         }
@@ -81,5 +81,17 @@ public class CreateCommandValidator extends CommandValidator {
     public boolean validateCDCreateAmount(String command) {
         String[] commandArgs = command.split(" ");
         return Double.parseDouble(commandArgs[4]) >= MIN_CDSTARTAMOUNT && Double.parseDouble(commandArgs[4]) <= MAX_CDSTARTAMOUNT;
+    }
+
+    @Override
+    public boolean validateNumberOfArguments(String command) {
+        String[] commandArgs = command.split(" ");
+        if (commandArgs.length == 4) {
+            return validateCreateAccount(command);
+        } else if (commandArgs.length == 5 && (commandArgs[1].equalsIgnoreCase("cd"))) {
+            return validateCreateAccount(command);
+        } else {
+            return false;
+        }
     }
 }

@@ -133,8 +133,8 @@ public class AccountTest {
     }
 
     @Test
-    void cd_account_balance_withdrawal_of_zero_with_balance_of_zero() {
+    void cd_account_balance_withdrawal_of_zero_with_starting_balance() {
         cdAccount.withdrawal(0);
-        assertEquals(0, cdAccount.getAccountBalance());
+        assertEquals(2000, cdAccount.getAccountBalance());
     }
 }

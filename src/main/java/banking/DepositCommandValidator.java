@@ -10,7 +10,7 @@ public class DepositCommandValidator extends CommandValidator {
     public boolean checkCommandType(String command) {
         String[] commandArgs = command.split(" ");
         if (commandArgs[0].equalsIgnoreCase("deposit")) {
-            return validateDepositToAccount(command);
+            return validateNumberOfArguments(command);
         } else {
             return false;
         }
@@ -29,5 +29,15 @@ public class DepositCommandValidator extends CommandValidator {
     public boolean validateDepositAccountAmount(String command) {
         String[] commandArgs = command.split(" ");
         return (this.bank.accountDepositWithinBounds(commandArgs[1], Double.parseDouble(commandArgs[2])));
+    }
+
+    @Override
+    public boolean validateNumberOfArguments(String command) {
+        String[] commandArgs = command.split(" ");
+        if (commandArgs.length == 3) {
+            return validateDepositToAccount(command);
+        } else {
+            return false;
+        }
     }
 }
