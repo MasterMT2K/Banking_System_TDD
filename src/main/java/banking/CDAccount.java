@@ -5,9 +5,15 @@ public class CDAccount extends Account {
     private final double MIN_CREATE_AMOUNT = 1000;
     private final double MAX_CREATE_AMOUNT = 10000;
     private final double NUM_MONTHLY_APR_CALCULATIONS = 4;
+    private final String accountType = "Cd";
 
     public CDAccount(String accountId, double accountApr, double accountBalance) {
         super(accountId, accountApr, accountBalance);
+    }
+
+    @Override
+    public String getAccountType() {
+        return this.accountType;
     }
 
     @Override

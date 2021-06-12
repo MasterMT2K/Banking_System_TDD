@@ -6,10 +6,16 @@ public class SavingsAccount extends Account {
     private final double MAX_DEPOSIT = 2500;
     private final double MIN_WITHDRAWAL = 0;
     private final double MAX_WITHDRAWAL = 1000;
+    private final String accountType = "Savings";
     private boolean hasWithdrewThisMonth = false;
 
     public SavingsAccount(String accountId, double accountApr, double accountBalance) {
         super(accountId, accountApr, accountBalance);
+    }
+
+    @Override
+    public String getAccountType() {
+        return this.accountType;
     }
 
     @Override

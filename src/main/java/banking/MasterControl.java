@@ -24,6 +24,6 @@ public class MasterControl {
                 commandStorage.addInvalidCommandToStorage(command);
             }
         }
-        return commandStorage.getInvalidCommands();
+        return commandStorage.getOutput(bank);
     }
 }

@@ -5,6 +5,7 @@ public abstract class Account {
     private final double MAX_DEPOSIT = 0;
     private final double MIN_WITHDRAWAL = 0;
     private final double MAX_WITHDRAWAL = 0;
+    private final String accountType = "Account";
     protected int monthsPassed = 0;
     protected double accountApr;
     protected double accountBalance;
@@ -15,6 +16,10 @@ public abstract class Account {
         this.accountId = accountId;
         this.accountApr = accountApr;
         this.accountBalance = accountBalance;
+    }
+
+    public String getAccountType() {
+        return accountType;
     }
 
     public String getAccountId() {

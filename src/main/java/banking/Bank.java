@@ -1,18 +1,19 @@
 package banking;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Bank {
 
-    private Map<String, Account> accounts;
+    protected Map<String, List<String>> transactionHistory;
+    private LinkedHashMap<String, Account> accounts;
     private int MINIMUM_BALANCE_FEE = 25;
 
     Bank() {
-        accounts = new HashMap<>();
+        accounts = new LinkedHashMap<>();
+        transactionHistory = new HashMap<>();
     }
 
-    public Map<String, Account> getAccounts() {
+    public LinkedHashMap<String, Account> getAccounts() {
         return accounts;
     }
 
@@ -24,6 +25,20 @@ public class Bank {
         } else if (accountType.equalsIgnoreCase("cd")) {
             accounts.put(accountId, new CDAccount(accountId, accountApr, accountBalance));
         }
+    }
+
+    public void addToTransactionHistory(String accountId, String command) {
+        if (this.transactionHistory.containsKey(accountId)) {
+            this.transactionHistory.get(accountId).add(command);
+        } else {
+            List<String> accountHistory = new ArrayList<>();
+            accountHistory.add(command);
+            this.transactionHistory.put(accountId, accountHistory);
+        }
+    }
+
+    public Map<String, List<String>> getTransactionHistory() {
+        return this.transactionHistory;
     }
 
     public void depositToAccount(String accountId, double depositAmount) {

@@ -20,6 +20,7 @@ public class WithdrawalCommandProcessor extends CommandProcessor {
         double withdrawalAmount = Double.parseDouble(commandArgs[2]);
         if (!this.bank.getAccounts().isEmpty() && this.bank.getAccounts().get(accountId).getAccountId().equals(accountId)) {
             bank.withdrawalFromAccount(accountId, withdrawalAmount);
+            bank.addToTransactionHistory(accountId, command);
         }
     }
 }

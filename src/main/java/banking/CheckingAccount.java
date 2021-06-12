@@ -6,9 +6,15 @@ public class CheckingAccount extends Account {
     private final double MAX_DEPOSIT = 1000;
     private final double MIN_WITHDRAWAL = 0;
     private final double MAX_WITHDRAWAL = 400;
+    private final String accountType = "Checking";
 
     public CheckingAccount(String accountId, double accountApr, double accountBalance) {
         super(accountId, accountApr, accountBalance);
+    }
+
+    @Override
+    public String getAccountType() {
+        return this.accountType;
     }
 
     @Override

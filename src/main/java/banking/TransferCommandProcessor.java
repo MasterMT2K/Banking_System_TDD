@@ -20,5 +20,7 @@ public class TransferCommandProcessor extends CommandProcessor {
         String depositToAccountId = commandArgs[2];
         double transferAmount = Double.parseDouble(commandArgs[3]);
         bank.transfer(withdrawFromAccountId, depositToAccountId, transferAmount);
+        bank.addToTransactionHistory(withdrawFromAccountId, command);
+        bank.addToTransactionHistory(depositToAccountId, command);
     }
 }
