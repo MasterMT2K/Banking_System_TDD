@@ -7,10 +7,12 @@ import java.util.List;
 
 public class CommandStorage {
 
-    private List<String> InvalidCommands = new ArrayList<>();
-    private List<String> Output = new ArrayList<>();
+    private List<String> InvalidCommands;
+    private List<String> Output;
 
     public CommandStorage() {
+        InvalidCommands = new ArrayList<>();
+        Output = new ArrayList<>();
     }
 
     public void assembleOutputToStorage(Bank bank) {

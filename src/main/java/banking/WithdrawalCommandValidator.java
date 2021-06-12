@@ -17,7 +17,6 @@ public class WithdrawalCommandValidator extends CommandValidator {
     }
 
     public boolean validateWithdrawalFromAccount(String command) {
-        String[] commandArgs = command.split(" ");
         return (validateWithdrawalAccountID(command) && validateWithdrawalAccountAmount(command) && validateWithdrawalThisMonth(command));
     }
 
