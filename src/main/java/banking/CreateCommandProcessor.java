@@ -1,15 +1,9 @@
+package banking;
+
 public class CreateCommandProcessor extends CommandProcessor {
 
     public CreateCommandProcessor(Bank bank) {
         super(bank);
-    }
-
-    @Override
-    public void checkCommandType(String command) {
-        String[] commandArgs = command.split(" ");
-        if (commandArgs[0].equalsIgnoreCase("create")) {
-            createAccount(command);
-        }
     }
 
     public void createAccount(String command) {

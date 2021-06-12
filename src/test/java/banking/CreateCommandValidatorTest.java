@@ -1,3 +1,5 @@
+package banking;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -157,6 +159,24 @@ public class CreateCommandValidatorTest {
     }
 
     @Test
+    void create_savings_with_greater_than_maximum_apr_is_invalid() {
+        boolean actual = createCommandValidator.checkCommandType("Create savings 12345678 10.1");
+        assertFalse(actual);
+    }
+
+    @Test
+    void create_checking_with_reater_than_maximum_apr_is_invalid() {
+        boolean actual = createCommandValidator.checkCommandType("Create checking 12345678 10.1");
+        assertFalse(actual);
+    }
+
+    @Test
+    void create_cd_with_reater_than_maximum_apr_is_invalid() {
+        boolean actual = createCommandValidator.checkCommandType("Create cd 12345678 10.1 2000");
+        assertFalse(actual);
+    }
+
+    @Test
     void create_savings_with_incorrect_length_id_is_invalid() {
         boolean actual = createCommandValidator.checkCommandType("Create savings 12378 0.6");
         assertFalse(actual);
@@ -291,6 +311,12 @@ public class CreateCommandValidatorTest {
     @Test
     void create_account_with_typo_in_create_is_invalid() {
         boolean actual = createCommandValidator.checkCommandType("Creame savings 12345678 0.6");
+        assertFalse(actual);
+    }
+
+    @Test
+    void create_account_with_extra_arguments_is_invalid() {
+        boolean actual = createCommandValidator.checkCommandType("Create savings 12345678 0.6 0.0");
         assertFalse(actual);
     }
 }

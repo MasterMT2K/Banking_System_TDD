@@ -1,3 +1,5 @@
+package banking;
+
 import java.util.List;
 
 public class MasterControl {
@@ -22,6 +24,6 @@ public class MasterControl {
                 commandStorage.addInvalidCommandToStorage(command);
             }
         }
-        return commandStorage.getInvalidCommands();
+        return commandStorage.getOutput(bank);
     }
 }

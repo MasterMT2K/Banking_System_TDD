@@ -1,3 +1,5 @@
+package banking;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,9 +42,20 @@ public class DepositCommandProcessorTest {
     }
 
     @Test
-    void deposit_command_creates_new_checking_account_with_correct_balance() {
+    void deposit_twice_into_checking_account_with_correct_balance() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        depositCommandProcessor.checkCommandType("Deposit 12345678 100");
         depositCommandProcessor.checkCommandType("Deposit 12345678 100");
         assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
-        assertEquals(BALANCE + DEPOSIT_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(BALANCE + DEPOSIT_AMOUNT + DEPOSIT_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+    }
+
+    @Test
+    void deposit_twice_into_savings_account_with_correct_balance() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        depositCommandProcessor.checkCommandType("Deposit 12345678 100");
+        depositCommandProcessor.checkCommandType("Deposit 12345678 100");
+        assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
+        assertEquals(BALANCE + DEPOSIT_AMOUNT + DEPOSIT_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
     }
 }
