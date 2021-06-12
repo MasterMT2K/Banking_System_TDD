@@ -28,7 +28,11 @@ public class DepositCommandValidator extends CommandValidator {
 
     public boolean validateDepositAccountAmount(String command) {
         String[] commandArgs = command.split(" ");
-        return (this.bank.accountDepositWithinBounds(commandArgs[1], Double.parseDouble(commandArgs[2])));
+        try {
+            return (this.bank.accountDepositWithinBounds(commandArgs[1], Double.parseDouble(commandArgs[2])));
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     @Override

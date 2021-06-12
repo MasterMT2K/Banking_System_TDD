@@ -34,6 +34,16 @@ public class Bank {
         accounts.get(accountId).withdrawal(withdrawalAmount);
     }
 
+    public void transfer(String WithdrawFromAccountId, String DepositToAccountId, double transferAmount) {
+        if (accounts.get(WithdrawFromAccountId).getAccountBalance() < transferAmount) {
+            accounts.get(WithdrawFromAccountId).withdrawal(transferAmount);
+            accounts.get(DepositToAccountId).deposit(accounts.get(WithdrawFromAccountId).getAccountBalance());
+        } else {
+            accounts.get(WithdrawFromAccountId).withdrawal(transferAmount);
+            accounts.get(DepositToAccountId).deposit(transferAmount);
+        }
+    }
+
     public boolean accountExistsByID(String Id) {
         return getAccounts().get(Id) != null;
     }

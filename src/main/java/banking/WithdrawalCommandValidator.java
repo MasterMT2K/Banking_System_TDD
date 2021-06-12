@@ -38,7 +38,11 @@ public class WithdrawalCommandValidator extends CommandValidator {
 
     public boolean validateWithdrawalAccountAmount(String command) {
         String[] commandArgs = command.split(" ");
-        return (this.bank.accountWithdrawalWithinBounds(commandArgs[1], Double.parseDouble(commandArgs[2])));
+        try {
+            return (this.bank.accountWithdrawalWithinBounds(commandArgs[1], Double.parseDouble(commandArgs[2])));
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public boolean validateWithdrawalThisMonth(String command) {

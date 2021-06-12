@@ -98,8 +98,8 @@ public class AccountTest {
 
     @Test
     void cd_account_has_correct_balance_after_withdrawal() {
-        cdAccount.withdrawal(WITHDRAWAL);
-        assertEquals(CDBALANCE - WITHDRAWAL, cdAccount.getAccountBalance());
+        cdAccount.withdrawal(CDBALANCE);
+        assertEquals(0, cdAccount.getAccountBalance());
     }
 
     @Test

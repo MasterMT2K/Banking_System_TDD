@@ -69,14 +69,6 @@ public class PassCommandProcessorTest {
     }
 
     @Test
-    void valid_cd_account_receives_minimum_balance_fee() {
-        bank.addAccount(ID, APR, CDBALANCE, CD);
-        bank.withdrawalFromAccount(ID, 1950);
-        passCommandProcessor.checkCommandType("Pass 1");
-        assertEquals(CDBALANCE - 1950 - MINIMUM_BALANCE_FEE, bank.getAccounts().get(ID).getAccountBalance());
-    }
-
-    @Test
     void valid_checking_account_has_correct_balance_after_one_month() {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
         bank.depositToAccount(ID, DEPOSIT_AMOUNT);
@@ -185,14 +177,6 @@ public class PassCommandProcessorTest {
     }
 
     @Test
-    void valid_cd_account_receives_minimum_balance_fee_until_zero_balance() {
-        bank.addAccount(ID, APR, CDBALANCE, CD);
-        bank.withdrawalFromAccount(ID, 1950);
-        passCommandProcessor.checkCommandType("Pass 2");
-        assertEquals(CDBALANCE - 1950 - MINIMUM_BALANCE_FEE - MINIMUM_BALANCE_FEE, bank.getAccounts().get(ID).getAccountBalance());
-    }
-
-    @Test
     void valid_checking_account_receives_minimum_balance_fee_and_is_removed() {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
         bank.depositToAccount(ID, SHORT_DEPOSIT_AMOUNT);
@@ -204,14 +188,6 @@ public class PassCommandProcessorTest {
     void valid_savings_account_receives_minimum_balance_fee_and_is_removed() {
         bank.addAccount(ID, APR, BALANCE, SAVINGS);
         bank.depositToAccount(ID, SHORT_DEPOSIT_AMOUNT);
-        passCommandProcessor.checkCommandType("Pass 3");
-        assertNull(bank.getAccounts().get(ID));
-    }
-
-    @Test
-    void valid_cd_account_receives_minimum_balance_fee_and_is_removed() {
-        bank.addAccount(ID, APR, CDBALANCE, CD);
-        bank.withdrawalFromAccount(ID, 1950);
         passCommandProcessor.checkCommandType("Pass 3");
         assertNull(bank.getAccounts().get(ID));
     }
@@ -233,14 +209,6 @@ public class PassCommandProcessorTest {
     }
 
     @Test
-    void valid_cd_account_receives_minimum_balance_fee_at_balance_of_99() {
-        bank.addAccount(ID, APR, CDBALANCE, CD);
-        bank.withdrawalFromAccount(ID, 1901);
-        passCommandProcessor.checkCommandType("Pass 1");
-        assertEquals(99 - MINIMUM_BALANCE_FEE, bank.getAccounts().get(ID).getAccountBalance());
-    }
-
-    @Test
     void valid_checking_account_calculates_APR_at_balance_of_101() {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
         bank.depositToAccount(ID, 101);
@@ -254,14 +222,6 @@ public class PassCommandProcessorTest {
         bank.depositToAccount(ID, 101);
         passCommandProcessor.checkCommandType("Pass 1");
         assertEquals(101.0505, bank.getAccounts().get(ID).getAccountBalance());
-    }
-
-    @Test
-    void valid_cd_account_calculates_APR_at_balance_of_101() {
-        bank.addAccount(ID, APR, CDBALANCE, CD);
-        bank.withdrawalFromAccount(ID, 1899);
-        passCommandProcessor.checkCommandType("Pass 1");
-        assertEquals(101.202, bank.getAccounts().get(ID).getAccountBalance(), 0.001);
     }
 
     @Test

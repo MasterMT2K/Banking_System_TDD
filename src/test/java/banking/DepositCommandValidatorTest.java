@@ -172,7 +172,7 @@ public class DepositCommandValidatorTest {
     }
 
     @Test
-    void deposit_into_account_with_alphanumeric_in_deposit_amount_is_invalid() {
+    void deposit_into_account_with_letters_in_deposit_amount_is_invalid() {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
         boolean actual = depositCommandValidator.checkCommandType("Deposit 12345678 10ef0");
         assertFalse(actual);

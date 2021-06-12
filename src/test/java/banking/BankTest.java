@@ -134,18 +134,16 @@ public class BankTest {
 
     @Test
     void withdrawal_from_cd_account() {
-        bank.addAccount(ID, APR, BALANCE, CD);
-        bank.depositToAccount(ID, DEPOSIT);
-        bank.withdrawalFromAccount(ID, WITHDRAWAL);
-        assertEquals(DEPOSIT - WITHDRAWAL, bank.getAccounts().get(ID).getAccountBalance());
+        bank.addAccount(ID, APR, CDBALANCE, CD);
+        bank.withdrawalFromAccount(ID, CDBALANCE);
+        assertEquals(0, bank.getAccounts().get(ID).getAccountBalance());
     }
 
     @Test
     void withdrawal_twice_from_cd_account() {
-        bank.addAccount(ID, APR, BALANCE, CD);
-        bank.depositToAccount(ID, DEPOSIT);
-        bank.withdrawalFromAccount(ID, WITHDRAWAL);
-        bank.withdrawalFromAccount(ID, WITHDRAWAL);
-        assertEquals(DEPOSIT - WITHDRAWAL - WITHDRAWAL, bank.getAccounts().get(ID).getAccountBalance());
+        bank.addAccount(ID, APR, CDBALANCE, CD);
+        bank.withdrawalFromAccount(ID, CDBALANCE);
+        bank.withdrawalFromAccount(ID, CDBALANCE);
+        assertEquals(0, bank.getAccounts().get(ID).getAccountBalance());
     }
 }

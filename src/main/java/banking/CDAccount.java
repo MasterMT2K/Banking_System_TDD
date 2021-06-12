@@ -35,9 +35,6 @@ public class CDAccount extends Account {
         double accountBalance = this.getAccountBalance();
         if (withdrawalAmount >= accountBalance) {
             this.setAccountBalance(0);
-        } else {
-            accountBalance -= withdrawalAmount;
-            setAccountBalance(accountBalance);
         }
     }
 

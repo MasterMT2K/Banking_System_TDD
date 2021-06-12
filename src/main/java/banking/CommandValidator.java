@@ -14,11 +14,14 @@ public class CommandValidator {
         CreateCommandValidator createCommandValidator = new CreateCommandValidator(bank);
         DepositCommandValidator depositCommandValidator = new DepositCommandValidator(bank);
         PassCommandValidator passCommandValidator = new PassCommandValidator(bank);
+        WithdrawalCommandValidator withdrawalCommandValidator = new WithdrawalCommandValidator(bank);
         String[] commandArgs = command.split(" ");
         if (commandArgs[0].equalsIgnoreCase("create")) {
             return createCommandValidator.checkCommandType(command);
         } else if (commandArgs[0].equalsIgnoreCase("deposit")) {
             return depositCommandValidator.checkCommandType(command);
+        } else if (commandArgs[0].equalsIgnoreCase("withdraw")) {
+            return withdrawalCommandValidator.checkCommandType(command);
         } else if (commandArgs[0].equalsIgnoreCase("pass")) {
             return passCommandValidator.checkCommandType(command);
         } else {
