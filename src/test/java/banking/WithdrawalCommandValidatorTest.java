@@ -232,7 +232,9 @@ public class WithdrawalCommandValidatorTest {
         passCommandProcessor.checkCommandType("Pass 1");
         bank.withdrawalFromAccount(ID, 100);
         boolean actual = withdrawalCommandValidator.checkCommandType("Withdraw 12345678 100");
+        boolean actual2 = withdrawalCommandValidator.checkCommandType("Withdraw 12345678 100");
         assertFalse(actual);
+        assertFalse(actual2);
     }
 
     @Test
@@ -381,6 +383,13 @@ public class WithdrawalCommandValidatorTest {
     void withdrawal_from_cd_account_with_extra_arguments_is_invalid() {
         bank.addAccount(ID, APR, CDBALANCE, CD);
         passCommandProcessor.checkCommandType("Pass 12");
+        boolean actual = withdrawalCommandValidator.checkCommandType("Withdraw 12345678 3000 0.4");
+        assertFalse(actual);
+    }
+
+    @Test
+    void withdrawal_from_cd_account_with_before_12_months_is_invalid() {
+        bank.addAccount(ID, APR, CDBALANCE, CD);
         boolean actual = withdrawalCommandValidator.checkCommandType("Withdraw 12345678 3000 0.4");
         assertFalse(actual);
     }

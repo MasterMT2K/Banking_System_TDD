@@ -20,6 +20,8 @@ public class BankTest {
     private static final double WITHDRAWAL = 250;
     private static final double CDBALANCE = 2000;
     private static final double LARGEWITHDRAWAL = 2500;
+    private static final double DEPOSIT_AMOUNT = 500;
+    private static final double TRANSFER_AMOUNT = 100;
     Bank bank;
 
     @BeforeEach
@@ -145,5 +147,85 @@ public class BankTest {
         bank.withdrawalFromAccount(ID, CDBALANCE);
         bank.withdrawalFromAccount(ID, CDBALANCE);
         assertEquals(0, bank.getAccounts().get(ID).getAccountBalance());
+    }
+
+    @Test
+    void valid_transfer_between_two_checking_accounts() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.addAccount(ID2, APR, BALANCE, CHECKING);
+        bank.depositToAccount(ID, DEPOSIT_AMOUNT);
+        bank.transfer(ID, ID2, TRANSFER_AMOUNT);
+        assertEquals(BALANCE + DEPOSIT_AMOUNT - TRANSFER_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(BALANCE + TRANSFER_AMOUNT, bank.getAccounts().get(ID2).getAccountBalance());
+    }
+
+    @Test
+    void valid_transfer_between_two_savings_accounts() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        bank.addAccount(ID2, APR, BALANCE, SAVINGS);
+        bank.depositToAccount(ID, DEPOSIT_AMOUNT);
+        bank.transfer(ID, ID2, TRANSFER_AMOUNT);
+        assertEquals(BALANCE + DEPOSIT_AMOUNT - TRANSFER_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(BALANCE + TRANSFER_AMOUNT, bank.getAccounts().get(ID2).getAccountBalance());
+    }
+
+    @Test
+    void valid_transfer_from_checking_to_savings_account() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.addAccount(ID2, APR, BALANCE, SAVINGS);
+        bank.depositToAccount(ID, DEPOSIT_AMOUNT);
+        bank.transfer(ID, ID2, TRANSFER_AMOUNT);
+        assertEquals(BALANCE + DEPOSIT_AMOUNT - TRANSFER_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(BALANCE + TRANSFER_AMOUNT, bank.getAccounts().get(ID2).getAccountBalance());
+    }
+
+    @Test
+    void valid_transfer_from_savings_to_checking_account() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        bank.addAccount(ID2, APR, BALANCE, CHECKING);
+        bank.depositToAccount(ID, DEPOSIT_AMOUNT);
+        bank.transfer(ID, ID2, TRANSFER_AMOUNT);
+        assertEquals(BALANCE + DEPOSIT_AMOUNT - TRANSFER_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(BALANCE + +TRANSFER_AMOUNT, bank.getAccounts().get(ID2).getAccountBalance());
+    }
+
+    @Test
+    void valid_transfer_between_two_checking_accounts_with_transfer_amount_greater_than_withdrawing_account_balance() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.addAccount(ID2, APR, BALANCE, CHECKING);
+        bank.depositToAccount(ID, 100);
+        bank.transfer(ID, ID2, 500);
+        assertEquals(BALANCE, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(BALANCE + 100, bank.getAccounts().get(ID2).getAccountBalance());
+    }
+
+    @Test
+    void valid_transfer_between_two_savings_accounts_with_transfer_amount_greater_than_withdrawing_account_balance() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        bank.addAccount(ID2, APR, BALANCE, SAVINGS);
+        bank.depositToAccount(ID, 100);
+        bank.transfer(ID, ID2, 500);
+        assertEquals(BALANCE, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(BALANCE + 100, bank.getAccounts().get(ID2).getAccountBalance());
+    }
+
+    @Test
+    void valid_transfer_from_checking_to_savings_account_with_transfer_amount_greater_than_withdrawing_account_balance() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.addAccount(ID2, APR, BALANCE, SAVINGS);
+        bank.depositToAccount(ID, 100);
+        bank.transfer(ID, ID2, 500);
+        assertEquals(BALANCE, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(BALANCE + 100, bank.getAccounts().get(ID2).getAccountBalance());
+    }
+
+    @Test
+    void valid_transfer_from_savings_to_checking_account_with_transfer_amount_greater_than_withdrawing_account_balance() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        bank.addAccount(ID2, APR, BALANCE, CHECKING);
+        bank.depositToAccount(ID, 100);
+        bank.transfer(ID, ID2, 500);
+        assertEquals(BALANCE, bank.getAccounts().get(ID).getAccountBalance());
+        assertEquals(BALANCE + 100, bank.getAccounts().get(ID2).getAccountBalance());
     }
 }

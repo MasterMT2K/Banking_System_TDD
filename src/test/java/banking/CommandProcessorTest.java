@@ -15,6 +15,7 @@ public class CommandProcessorTest {
     private static final double BALANCE = 0;
     private static final double CDBALANCE = 2000;
     private static final double DEPOSIT_AMOUNT = 100;
+    private static final double WITHDRAWAL_AMOUNT = 100;
 
     CommandProcessor commandProcessor;
     Bank bank;
@@ -72,6 +73,63 @@ public class CommandProcessorTest {
         commandProcessor.checkCommandType("Deposit 12345678 100");
         assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
         assertEquals(BALANCE + DEPOSIT_AMOUNT + DEPOSIT_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+    }
+
+    @Test
+    void withdraw_from_checking_account_with_correct_balance() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.depositToAccount(ID, DEPOSIT_AMOUNT);
+        commandProcessor.checkCommandType("Withdraw 12345678 100");
+        assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
+        assertEquals(BALANCE + DEPOSIT_AMOUNT - WITHDRAWAL_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+    }
+
+    @Test
+    void withdraw_from_savings_account_with_correct_balance() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        bank.depositToAccount(ID, DEPOSIT_AMOUNT);
+        commandProcessor.checkCommandType("Withdraw 12345678 100");
+        assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
+        assertEquals(BALANCE + DEPOSIT_AMOUNT - WITHDRAWAL_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+    }
+
+    @Test
+    void withdraw_from_cd_account_with_correct_balance() {
+        bank.addAccount(ID, APR, CDBALANCE, CD);
+        bank.passTime("Pass 12");
+        commandProcessor.checkCommandType("Withdraw 12345678 3000");
+        assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
+        assertEquals(0, bank.getAccounts().get(ID).getAccountBalance());
+    }
+
+    @Test
+    void withdraw_twice_from_checking_account_with_correct_balance() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.depositToAccount(ID, DEPOSIT_AMOUNT);
+        commandProcessor.checkCommandType("Withdraw 12345678 100");
+        commandProcessor.checkCommandType("Withdraw 12345678 100");
+        assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
+        assertEquals(BALANCE + DEPOSIT_AMOUNT - WITHDRAWAL_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+    }
+
+    @Test
+    void withdraw_twice_from_savings_account_with_correct_balance() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        bank.depositToAccount(ID, DEPOSIT_AMOUNT);
+        commandProcessor.checkCommandType("Withdraw 12345678 100");
+        commandProcessor.checkCommandType("Withdraw 12345678 100");
+        assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
+        assertEquals(BALANCE + DEPOSIT_AMOUNT - WITHDRAWAL_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+    }
+
+    @Test
+    void withdraw_twice_from_cd_account_with_correct_balance() {
+        bank.addAccount(ID, APR, CDBALANCE, CD);
+        bank.passTime("Pass 12");
+        commandProcessor.checkCommandType("Withdraw 12345678 3000");
+        commandProcessor.checkCommandType("Withdraw 12345678 3000");
+        assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
+        assertEquals(0, bank.getAccounts().get(ID).getAccountBalance());
     }
 }
 

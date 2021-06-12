@@ -34,12 +34,16 @@ public class CheckingAccount extends Account {
 
     @Override
     public void deposit(double depositAmount) {
-        super.deposit(depositAmount);
+        this.accountBalance += depositAmount;
+        ;
     }
 
     @Override
     public void withdrawal(double withdrawalAmount) {
-        super.withdrawal(withdrawalAmount);
+        this.accountBalance -= withdrawalAmount;
+        if (this.accountBalance <= 0) {
+            this.accountBalance = 0;
+        }
     }
 
     @Override
@@ -50,11 +54,6 @@ public class CheckingAccount extends Account {
     @Override
     public boolean checkWithdrawalBounds(double withdrawalAmount) {
         return withdrawalAmount >= MIN_WITHDRAWAL && withdrawalAmount <= MAX_WITHDRAWAL;
-    }
-
-    @Override
-    public boolean canWithdrawThisMonth() {
-        return super.canWithdrawThisMonth();
     }
 
     @Override
@@ -77,13 +76,4 @@ public class CheckingAccount extends Account {
         super.addMonthsPassed(monthsPassed);
     }
 
-    @Override
-    public boolean getHasWithdrewThisMonth() {
-        return super.getHasWithdrewThisMonth();
-    }
-
-    @Override
-    public void setHasWithdrewThisMonth(boolean value) {
-        super.setHasWithdrewThisMonth(value);
-    }
 }

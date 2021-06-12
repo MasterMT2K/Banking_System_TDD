@@ -35,7 +35,7 @@ public class SavingsAccount extends Account {
 
     @Override
     public void deposit(double depositAmount) {
-        super.deposit(depositAmount);
+        this.accountBalance += depositAmount;
     }
 
     @Override

@@ -83,12 +83,6 @@ public class CDAccount extends Account {
     }
 
     @Override
-    public boolean getHasWithdrewThisMonth() {
-        return super.getHasWithdrewThisMonth();
-    }
-
-    @Override
-    public void setHasWithdrewThisMonth(boolean value) {
-        super.setHasWithdrewThisMonth(value);
+    public void deposit(double depositAmount) {
     }
 }

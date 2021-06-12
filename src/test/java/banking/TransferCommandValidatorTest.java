@@ -165,6 +165,38 @@ public class TransferCommandValidatorTest {
     }
 
     @Test
+    void valid_transfer_command_with_deposit_amount_bound() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.addAccount(ID2, APR, BALANCE, CHECKING);
+        boolean actual = transferCommandValidator.validateDepositAccountAmount("Transfer 12345678 87654321 1000");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_transfer_command_with_withdrawal_amount_bound() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.addAccount(ID2, APR, BALANCE, CHECKING);
+        boolean actual = transferCommandValidator.validateWithdrawalAccountAmount("Transfer 12345678 87654321 400");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_transfer_command_with_less_than_max_deposit_amount_bound() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.addAccount(ID2, APR, BALANCE, CHECKING);
+        boolean actual = transferCommandValidator.validateDepositAccountAmount("Transfer 12345678 87654321 999");
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_transfer_command_with_less_than_max_withdrawal_amount_bound() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.addAccount(ID2, APR, BALANCE, CHECKING);
+        boolean actual = transferCommandValidator.validateWithdrawalAccountAmount("Transfer 12345678 87654321 399");
+        assertTrue(actual);
+    }
+
+    @Test
     void transfer_between_two_checking_accounts_with_less_than_minimum_deposit_is_invalid() {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
         bank.addAccount(ID2, APR, BALANCE, CHECKING);
@@ -361,6 +393,30 @@ public class TransferCommandValidatorTest {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
         bank.addAccount(ID2, APR, BALANCE, CHECKING);
         boolean actual = transferCommandValidator.checkCommandType("Transfer 12345678 87654321 100 amount 0.6");
+        assertFalse(actual);
+    }
+
+    @Test
+    void transfer_command_with_greater_than_deposit_amount_bound_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.addAccount(ID2, APR, BALANCE, CHECKING);
+        boolean actual = transferCommandValidator.validateDepositAccountAmount("Transfer 12345678 87654321 1001");
+        assertFalse(actual);
+    }
+
+    @Test
+    void transfer_command_with_non_integer_id_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.addAccount(ID2, APR, BALANCE, CHECKING);
+        boolean actual = transferCommandValidator.validateDepositAccountIDIsInteger("Transfer 12345678 87.34321 401");
+        assertFalse(actual);
+    }
+
+    @Test
+    void transfer_command_with_alphanumeric_id_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.addAccount(ID2, APR, BALANCE, CHECKING);
+        boolean actual = transferCommandValidator.validateWithdrawalAccountIDIsInteger("Transfer 12efw678 87654321 401");
         assertFalse(actual);
     }
 }

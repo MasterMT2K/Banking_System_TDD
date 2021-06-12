@@ -41,7 +41,7 @@ public class CommandValidator {
     public boolean validateAccountIDIsInteger(String command) {
         String[] commandArgs = command.split(" ");
         try {
-            int IdValue = Integer.parseInt(commandArgs[2]);
+            Integer.parseInt(commandArgs[2]);
             return true;
         } catch (NumberFormatException e) {
             return false;

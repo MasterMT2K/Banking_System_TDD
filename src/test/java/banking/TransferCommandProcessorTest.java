@@ -35,7 +35,7 @@ public class TransferCommandProcessorTest {
         bank.depositToAccount(ID, DEPOSIT_AMOUNT);
         transferCommandProcessor.transfer("Transfer 12345678 87654321 100");
         assertEquals(BALANCE + DEPOSIT_AMOUNT - TRANSFER_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
-        assertEquals(BALANCE + +TRANSFER_AMOUNT, bank.getAccounts().get(ID2).getAccountBalance());
+        assertEquals(BALANCE + TRANSFER_AMOUNT, bank.getAccounts().get(ID2).getAccountBalance());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class TransferCommandProcessorTest {
         bank.depositToAccount(ID, DEPOSIT_AMOUNT);
         transferCommandProcessor.transfer("Transfer 12345678 87654321 100");
         assertEquals(BALANCE + DEPOSIT_AMOUNT - TRANSFER_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
-        assertEquals(BALANCE + +TRANSFER_AMOUNT, bank.getAccounts().get(ID2).getAccountBalance());
+        assertEquals(BALANCE + TRANSFER_AMOUNT, bank.getAccounts().get(ID2).getAccountBalance());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class TransferCommandProcessorTest {
         bank.depositToAccount(ID, DEPOSIT_AMOUNT);
         transferCommandProcessor.transfer("Transfer 12345678 87654321 100");
         assertEquals(BALANCE + DEPOSIT_AMOUNT - TRANSFER_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
-        assertEquals(BALANCE + +TRANSFER_AMOUNT, bank.getAccounts().get(ID2).getAccountBalance());
+        assertEquals(BALANCE + TRANSFER_AMOUNT, bank.getAccounts().get(ID2).getAccountBalance());
     }
 
     @Test
@@ -65,6 +65,6 @@ public class TransferCommandProcessorTest {
         bank.depositToAccount(ID, DEPOSIT_AMOUNT);
         transferCommandProcessor.transfer("Transfer 12345678 87654321 100");
         assertEquals(BALANCE + DEPOSIT_AMOUNT - TRANSFER_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
-        assertEquals(BALANCE + +TRANSFER_AMOUNT, bank.getAccounts().get(ID2).getAccountBalance());
+        assertEquals(BALANCE + TRANSFER_AMOUNT, bank.getAccounts().get(ID2).getAccountBalance());
     }
 }

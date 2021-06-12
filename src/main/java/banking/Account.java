@@ -54,24 +54,13 @@ public abstract class Account {
         hasWithdrewThisMonth = value;
     }
 
-    public void deposit(double depositAmount) {
-        this.accountBalance += depositAmount;
-    }
+    public abstract void deposit(double depositAmount);
 
-    public void withdrawal(double withdrawalAmount) {
-        this.accountBalance -= withdrawalAmount;
-        if (this.accountBalance <= 0) {
-            this.accountBalance = 0;
-        }
-    }
+    public abstract void withdrawal(double withdrawalAmount);
 
-    public boolean checkDepositBounds(double depositAmount) {
-        return depositAmount >= MIN_DEPOSIT && depositAmount <= MAX_DEPOSIT;
-    }
+    public abstract boolean checkDepositBounds(double depositAmount);
 
-    public boolean checkWithdrawalBounds(double withdrawalAmount) {
-        return withdrawalAmount >= MIN_WITHDRAWAL && withdrawalAmount <= MAX_WITHDRAWAL;
-    }
+    public abstract boolean checkWithdrawalBounds(double withdrawalAmount);
 
     public boolean canWithdrawThisMonth() {
         return true;

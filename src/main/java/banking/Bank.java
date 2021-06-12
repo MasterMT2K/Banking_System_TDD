@@ -51,8 +51,8 @@ public class Bank {
 
     public void transfer(String WithdrawFromAccountId, String DepositToAccountId, double transferAmount) {
         if (accounts.get(WithdrawFromAccountId).getAccountBalance() < transferAmount) {
-            accounts.get(WithdrawFromAccountId).withdrawal(transferAmount);
             accounts.get(DepositToAccountId).deposit(accounts.get(WithdrawFromAccountId).getAccountBalance());
+            accounts.get(WithdrawFromAccountId).withdrawal(transferAmount);
         } else {
             accounts.get(WithdrawFromAccountId).withdrawal(transferAmount);
             accounts.get(DepositToAccountId).deposit(transferAmount);
@@ -65,10 +65,6 @@ public class Bank {
 
     public boolean accountDepositWithinBounds(String accountId, double depositAmount) {
         return accounts.get(accountId).checkDepositBounds(depositAmount);
-    }
-
-    public boolean checkCreateBounds(String accountId, double createAmount) {
-        return accounts.get(accountId).checkCreateBounds(createAmount);
     }
 
     public boolean accountWithdrawalWithinBounds(String accountId, double withdrawalAmount) {

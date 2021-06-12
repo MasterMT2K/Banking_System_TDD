@@ -209,6 +209,22 @@ public class PassCommandProcessorTest {
     }
 
     @Test
+    void valid_checking_account_calculates_APR_at_balance_of_100() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        bank.depositToAccount(ID, 100);
+        passCommandProcessor.checkCommandType("Pass 1");
+        assertEquals(100.05, bank.getAccounts().get(ID).getAccountBalance());
+    }
+
+    @Test
+    void valid_savings_account_calculates_APR_at_balance_of_100() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        bank.depositToAccount(ID, 100);
+        passCommandProcessor.checkCommandType("Pass 1");
+        assertEquals(100.05, bank.getAccounts().get(ID).getAccountBalance());
+    }
+
+    @Test
     void valid_checking_account_calculates_APR_at_balance_of_101() {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
         bank.depositToAccount(ID, 101);

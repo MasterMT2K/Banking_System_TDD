@@ -183,6 +183,22 @@ public class AccountTest {
     }
 
     @Test
+    void valid_cd_account_create_with_minimum_create_bounds() {
+        assertTrue(cdAccount.checkCreateBounds(1000));
+    }
+
+    @Test
+    void valid_cd_account_create_with_maximum_create_bounds_is_invalid() {
+        assertTrue(cdAccount.checkCreateBounds(10000));
+    }
+
+    @Test
+    void valid_cd_account_withdrawal_with_balance() {
+        cdAccount.withdrawal(cdAccount.getAccountBalance());
+        assertTrue(savingsAccount.checkWithdrawalBounds(cdAccount.getAccountBalance()));
+    }
+
+    @Test
     void checking_account_negative_withdrawal_is_invalid() {
         assertFalse(checkingAccount.checkWithdrawalBounds(-1));
     }
@@ -214,6 +230,12 @@ public class AccountTest {
     void savings_account_withdrawal_with_greater_than_withdrawal_bounds_is_invalid() {
         savingsAccount.withdrawal(1001);
         assertFalse(savingsAccount.checkWithdrawalBounds(1001));
+    }
+
+    @Test
+    void cd_account_withdrawal_with_greater_than_withdrawal_bounds_is_invalid() {
+        cdAccount.withdrawal(cdAccount.getAccountBalance() - 1);
+        assertFalse(savingsAccount.checkWithdrawalBounds(cdAccount.getAccountBalance() - 1));
     }
 
     @Test
