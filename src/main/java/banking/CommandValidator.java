@@ -15,6 +15,7 @@ public class CommandValidator {
         DepositCommandValidator depositCommandValidator = new DepositCommandValidator(bank);
         PassCommandValidator passCommandValidator = new PassCommandValidator(bank);
         WithdrawalCommandValidator withdrawalCommandValidator = new WithdrawalCommandValidator(bank);
+        TransferCommandValidator transferCommandValidator = new TransferCommandValidator(bank);
         String[] commandArgs = command.split(" ");
         if (commandArgs[0].equalsIgnoreCase("create")) {
             return createCommandValidator.checkCommandType(command);
@@ -22,6 +23,8 @@ public class CommandValidator {
             return depositCommandValidator.checkCommandType(command);
         } else if (commandArgs[0].equalsIgnoreCase("withdraw")) {
             return withdrawalCommandValidator.checkCommandType(command);
+        } else if (commandArgs[0].equalsIgnoreCase("transfer")) {
+            return transferCommandValidator.checkCommandType(command);
         } else if (commandArgs[0].equalsIgnoreCase("pass")) {
             return passCommandValidator.checkCommandType(command);
         } else {
