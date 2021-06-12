@@ -6,6 +6,7 @@ import java.util.Map;
 public class Bank {
 
     private Map<String, Account> accounts;
+    private int MINIMUM_BALANCE_FEE = 25;
 
     Bank() {
         accounts = new HashMap<>();
@@ -41,7 +42,19 @@ public class Bank {
         return accounts.get(accountId).checkDepositBounds(depositAmount);
     }
 
-    public boolean accountCreateWithinBounds(String accountId, double depositAmount) {
-        return accounts.get(accountId).checkDepositBounds(depositAmount);
+    public boolean checkCreateBounds(String accountId, double createAmount) {
+        return accounts.get(accountId).checkCreateBounds(createAmount);
+    }
+
+    public void removeAccount(String accountId) {
+        accounts.remove(accountId);
+    }
+
+    public void deductMinimumBalanceFee(String accountId) {
+        accounts.get(accountId).setAccountBalance(accounts.get(accountId).getAccountBalance() - MINIMUM_BALANCE_FEE);
+    }
+
+    public void calculateAPR(String accountId) {
+        accounts.get(accountId).calculateAPR();
     }
 }

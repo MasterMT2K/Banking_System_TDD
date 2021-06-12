@@ -38,4 +38,19 @@ public class SavingsAccount extends Account {
     public boolean checkDepositBounds(double depositAmount) {
         return depositAmount >= MIN_DEPOSIT && depositAmount <= MAX_DEPOSIT;
     }
+
+    @Override
+    public void calculateAPR() {
+        super.calculateAPR();
+    }
+
+    @Override
+    public int getMonthsPassed() {
+        return super.getMonthsPassed();
+    }
+
+    @Override
+    public void addMonthsPassed(int monthsPassed) {
+        super.addMonthsPassed(monthsPassed);
+    }
 }

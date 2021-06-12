@@ -1,9 +1,10 @@
 package banking;
 
 public abstract class Account {
+    protected int monthsPassed = 0;
+    protected double accountApr;
+    protected double accountBalance;
     private String accountId;
-    private double accountApr;
-    private double accountBalance;
     private double MIN_DEPOSIT = 0;
     private double MAX_DEPOSIT = 0;
 
@@ -29,6 +30,14 @@ public abstract class Account {
         this.accountBalance = newAccountBalance;
     }
 
+    public int getMonthsPassed() {
+        return monthsPassed;
+    }
+
+    public void addMonthsPassed(int monthsToPass) {
+        monthsPassed += monthsToPass;
+    }
+
     public void deposit(double depositAmount) {
         this.accountBalance += depositAmount;
     }
@@ -47,4 +56,11 @@ public abstract class Account {
     public boolean checkCreateBounds(double createAmount) {
         return (createAmount == 0);
     }
+
+    public void calculateAPR() {
+        double accountInterest = this.accountApr / 1200;
+        this.accountBalance += (this.accountBalance * accountInterest);
+    }
+
+
 }

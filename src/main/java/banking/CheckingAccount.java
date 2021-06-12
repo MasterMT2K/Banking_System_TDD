@@ -43,4 +43,19 @@ public class CheckingAccount extends Account {
     public boolean checkCreateBounds(double createAmount) {
         return (createAmount == 0);
     }
+
+    @Override
+    public void calculateAPR() {
+        super.calculateAPR();
+    }
+
+    @Override
+    public int getMonthsPassed() {
+        return super.getMonthsPassed();
+    }
+
+    @Override
+    public void addMonthsPassed(int monthsPassed) {
+        super.addMonthsPassed(monthsPassed);
+    }
 }

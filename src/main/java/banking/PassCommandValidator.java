@@ -19,16 +19,13 @@ public class PassCommandValidator extends CommandValidator {
     public boolean validatePassTimeValue(String command) {
         String[] commandArgs = command.split(" ");
         try {
-            if (Integer.parseInt(commandArgs[1]) >= 1 && Integer.parseInt(commandArgs[1]) <= 60) {
-                return true;
-            } else {
-                return false;
-            }
+            return Integer.parseInt(commandArgs[1]) >= 1 && Integer.parseInt(commandArgs[1]) <= 60;
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
+    @Override
     public boolean validateNumberOfArguments(String command) {
         String[] commandArgs = command.split(" ");
         if (commandArgs.length == 2) {

@@ -63,10 +63,6 @@ public class CommandValidator {
 
     public boolean validateNumberOfArguments(String command) {
         String[] commandArgs = command.split(" ");
-        if (commandArgs.length == 4) {
-            return true;
-        } else {
-            return false;
-        }
+        return commandArgs.length == 4;
     }
 }
