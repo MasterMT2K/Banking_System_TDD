@@ -419,4 +419,24 @@ public class TransferCommandValidatorTest {
         boolean actual = transferCommandValidator.validateWithdrawalAccountIDIsInteger("Transfer 12efw678 87654321 401");
         assertFalse(actual);
     }
+
+    @Test
+    void transfer_command_for_savings_account_after_withdrawal_is_invalid() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        bank.addAccount(ID2, APR, BALANCE, SAVINGS);
+        bank.depositToAccount(ID, 1000);
+        bank.withdrawalFromAccount(ID, 100);
+        boolean actual = transferCommandValidator.validateTransferCommand("Transfer 12345678 87654321 200");
+        assertFalse(actual);
+    }
+
+    @Test
+    void transfer_command_validate_withdrawal_account_id() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        bank.addAccount(ID2, APR, BALANCE, SAVINGS);
+        boolean actual = transferCommandValidator.validateTransferCommand("Transfer 12345678 87654321 32rew");
+        assertFalse(actual);
+    }
+
+
 }

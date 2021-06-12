@@ -277,4 +277,23 @@ public class AccountTest {
     void cd_account_create_with_greater_than_create_bounds_is_invalid() {
         assertFalse(cdAccount.checkCreateBounds(10001));
     }
+
+    @Test
+    void checking_account_has_correct_type_and_not_the_other_account_types() {
+        assertNotEquals("savings", checkingAccount.getAccountType());
+        assertNotEquals("cd", savingsAccount.getAccountType());
+
+    }
+
+    @Test
+    void savings_account_has_correct_type_and_not_the_other_account_types() {
+        assertNotEquals("cd", savingsAccount.getAccountType());
+        assertNotEquals("checking", cdAccount.getAccountType());
+    }
+
+    @Test
+    void cd_account_has_correct_type_and_not_the_other_account_types() {
+        assertNotEquals("checking", cdAccount.getAccountType());
+        assertNotEquals("savings", checkingAccount.getAccountType());
+    }
 }
