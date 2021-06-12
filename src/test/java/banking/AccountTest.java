@@ -3,7 +3,7 @@ package banking;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AccountTest {
 
@@ -38,6 +38,21 @@ public class AccountTest {
     @Test
     void cd_account_has_id() {
         assertEquals(ID, cdAccount.getAccountId());
+    }
+
+    @Test
+    void checking_account_has_correct_type() {
+        assertEquals("Checking", checkingAccount.getAccountType());
+    }
+
+    @Test
+    void savings_account_has_correct_type() {
+        assertEquals("Savings", savingsAccount.getAccountType());
+    }
+
+    @Test
+    void cd_account_has_correct_type() {
+        assertEquals("Cd", cdAccount.getAccountType());
     }
 
     @Test
@@ -137,4 +152,108 @@ public class AccountTest {
         cdAccount.withdrawal(0);
         assertEquals(2000, cdAccount.getAccountBalance());
     }
+
+    @Test
+    void savings_account_balance_has_withdrew_this_month() {
+        savingsAccount.withdrawal(0);
+        assertTrue(savingsAccount.getHasWithdrewThisMonth());
+    }
+
+    @Test
+    void savings_account_balance_has_not_withdrew_this_month() {
+        assertFalse(savingsAccount.getHasWithdrewThisMonth());
+    }
+
+    @Test
+    void checking_account_balance_withdrawal_of_greater_than_balance_returns_with_balance_of_zero() {
+        checkingAccount.withdrawal(100);
+        assertEquals(0, checkingAccount.getAccountBalance());
+    }
+
+    @Test
+    void savings_account_balance_withdrawal_of_greater_than_balance_returns_with_balance_of_zero() {
+        savingsAccount.withdrawal(100);
+        assertEquals(0, savingsAccount.getAccountBalance());
+    }
+
+    @Test
+    void cd_account_balance_withdrawal_of_greater_than_balance_returns_with_balance_of_zero() {
+        cdAccount.withdrawal(100);
+        assertEquals(2000, cdAccount.getAccountBalance());
+    }
+
+    @Test
+    void checking_account_negative_withdrawal_is_invalid() {
+        assertFalse(checkingAccount.checkWithdrawalBounds(-1));
+    }
+
+    @Test
+    void savings_account_negative_withdrawal_is_invalid() {
+        assertFalse(savingsAccount.checkWithdrawalBounds(-1));
+    }
+
+    @Test
+    void checking_account_withdrawal_with_less_than_withdrawal_bounds_is_invalid() {
+        checkingAccount.withdrawal(-1);
+        assertFalse(checkingAccount.checkWithdrawalBounds(-1));
+    }
+
+    @Test
+    void savings_account_withdrawal_with_less_than_withdrawal_bounds_is_invalid() {
+        savingsAccount.withdrawal(-1);
+        assertFalse(savingsAccount.checkWithdrawalBounds(-1));
+    }
+
+    @Test
+    void checking_account_withdrawal_with_greater_than_withdrawal_bounds_is_invalid() {
+        checkingAccount.withdrawal(401);
+        assertFalse(checkingAccount.checkWithdrawalBounds(401));
+    }
+
+    @Test
+    void savings_account_withdrawal_with_greater_than_withdrawal_bounds_is_invalid() {
+        savingsAccount.withdrawal(1001);
+        assertFalse(savingsAccount.checkWithdrawalBounds(1001));
+    }
+
+    @Test
+    void checking_account_create_with_negative_create_bounds_is_invalid() {
+        assertFalse(checkingAccount.checkCreateBounds(-1));
+    }
+
+    @Test
+    void savings_account_create_with_negative_create_bounds_is_invalid() {
+        assertFalse(savingsAccount.checkCreateBounds(-1));
+    }
+
+    @Test
+    void checking_account_create_with_greater_than_create_bounds_is_invalid() {
+        assertFalse(checkingAccount.checkCreateBounds(1));
+    }
+
+    @Test
+    void savings_account_create_with_greater_than_create_bounds_is_invalid() {
+        assertFalse(savingsAccount.checkCreateBounds(1));
+    }
+
+    @Test
+    void valid_cd_account_create_within_create_bounds() {
+        assertTrue(cdAccount.checkCreateBounds(2000));
+    }
+
+    @Test
+    void cd_account_create_with_negative_create_bounds_is_invalid() {
+        assertFalse(cdAccount.checkCreateBounds(-1));
+    }
+
+    @Test
+    void cd_account_create_with_less_than_create_bounds_is_invalid() {
+        assertFalse(cdAccount.checkCreateBounds(999));
+    }
+
+    @Test
+    void cd_account_create_with_greater_than_create_bounds_is_invalid() {
+        assertFalse(cdAccount.checkCreateBounds(10001));
+    }
+
 }

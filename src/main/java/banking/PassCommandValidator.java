@@ -6,16 +6,6 @@ public class PassCommandValidator extends CommandValidator {
         super(bank);
     }
 
-    @Override
-    public boolean checkCommandType(String command) {
-        String[] commandArgs = command.split(" ");
-        if (commandArgs[0].equalsIgnoreCase("pass")) {
-            return validateNumberOfArguments(command);
-        } else {
-            return false;
-        }
-    }
-
     public boolean validatePassTimeValue(String command) {
         String[] commandArgs = command.split(" ");
         try {

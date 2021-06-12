@@ -18,15 +18,15 @@ public class CommandValidator {
         TransferCommandValidator transferCommandValidator = new TransferCommandValidator(bank);
         String[] commandArgs = command.split(" ");
         if (commandArgs[0].equalsIgnoreCase("create")) {
-            return createCommandValidator.checkCommandType(command);
+            return createCommandValidator.validateNumberOfArguments(command);
         } else if (commandArgs[0].equalsIgnoreCase("deposit")) {
-            return depositCommandValidator.checkCommandType(command);
+            return depositCommandValidator.validateNumberOfArguments(command);
         } else if (commandArgs[0].equalsIgnoreCase("withdraw")) {
-            return withdrawalCommandValidator.checkCommandType(command);
+            return withdrawalCommandValidator.validateNumberOfArguments(command);
         } else if (commandArgs[0].equalsIgnoreCase("transfer")) {
-            return transferCommandValidator.checkCommandType(command);
+            return transferCommandValidator.validateNumberOfArguments(command);
         } else if (commandArgs[0].equalsIgnoreCase("pass")) {
-            return passCommandValidator.checkCommandType(command);
+            return passCommandValidator.validateNumberOfArguments(command);
         } else {
             return false;
         }

@@ -7,16 +7,6 @@ public class TransferCommandValidator extends CommandValidator {
     }
 
     @Override
-    public boolean checkCommandType(String command) {
-        String[] commandArgs = command.split(" ");
-        if (commandArgs[0].equalsIgnoreCase("transfer")) {
-            return validateNumberOfArguments(command);
-        } else {
-            return false;
-        }
-    }
-
-    @Override
     public boolean validateNumberOfArguments(String command) {
         String[] commandArgs = command.split(" ");
         if (commandArgs.length == 4) {

@@ -11,16 +11,6 @@ public class CreateCommandValidator extends CommandValidator {
         super(bank);
     }
 
-    @Override
-    public boolean checkCommandType(String command) {
-        String[] commandArgs = command.split(" ");
-        if (commandArgs[0].equalsIgnoreCase("create")) {
-            return validateNumberOfArguments(command);
-        } else {
-            return false;
-        }
-    }
-
     public boolean validateCreateAccount(String command) {
         String[] commandArgs = command.split(" ");
         if (commandArgs[1].equalsIgnoreCase("checking")) {
@@ -55,27 +45,6 @@ public class CreateCommandValidator extends CommandValidator {
     public boolean validateCreateAccountID(String command) {
         String[] commandArgs = command.split(" ");
         return (!this.bank.accountExistsByID(commandArgs[2]) && commandArgs[2].length() == 8 && validateAccountIDIsInteger(command));
-    }
-
-    @Override
-    public boolean validateAccountAPR(String command) {
-        String[] commandArgs = command.split(" ");
-        if ((commandArgs.length == 4 || commandArgs.length == 5) && validateAccountAPRIsDouble(command)) {
-            return Double.parseDouble(commandArgs[3]) >= MIN_APR && Double.parseDouble(commandArgs[3]) <= MAX_APR;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean validateAccountAPRIsDouble(String command) {
-        String[] commandArgs = command.split(" ");
-        try {
-            double IdValue = Double.parseDouble(commandArgs[3]);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 
     public boolean validateCDCreateAmount(String command) {

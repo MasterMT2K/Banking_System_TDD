@@ -95,16 +95,20 @@ public class Bank {
         String[] commandArgs = command.split(" ");
         int numberOfMonthsToPass = Integer.parseInt(commandArgs[1]);
         for (int monthsPassed = 0; monthsPassed < numberOfMonthsToPass; monthsPassed++) {
-            for (String accountId : getAccounts().keySet()) {
-                getAccounts().get(accountId).addMonthsPassed(1);
-                getAccounts().get(accountId).setHasWithdrewThisMonth(false);
-                if (getAccounts().get(accountId).getAccountBalance() == 0) {
-                    removeAccount(accountId);
-                } else if (getAccounts().get(accountId).getAccountBalance() < 100) {
-                    deductMinimumBalanceFee(accountId);
-                } else {
-                    calculateAPR(accountId);
-                }
+            passTimeCycle();
+        }
+    }
+
+    public void passTimeCycle() {
+        for (String accountId : getAccounts().keySet()) {
+            getAccounts().get(accountId).addMonthsPassed(1);
+            getAccounts().get(accountId).setHasWithdrewThisMonth(false);
+            if (getAccounts().get(accountId).getAccountBalance() == 0) {
+                removeAccount(accountId);
+            } else if (getAccounts().get(accountId).getAccountBalance() < 100) {
+                deductMinimumBalanceFee(accountId);
+            } else {
+                calculateAPR(accountId);
             }
         }
     }

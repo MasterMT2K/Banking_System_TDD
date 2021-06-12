@@ -6,16 +6,6 @@ public class DepositCommandValidator extends CommandValidator {
         super(bank);
     }
 
-    @Override
-    public boolean checkCommandType(String command) {
-        String[] commandArgs = command.split(" ");
-        if (commandArgs[0].equalsIgnoreCase("deposit")) {
-            return validateNumberOfArguments(command);
-        } else {
-            return false;
-        }
-    }
-
     public boolean validateDepositToAccount(String command) {
         String[] commandArgs = command.split(" ");
         return (commandArgs.length == 3 && validateDepositAccountID(command) && validateDepositAccountAmount(command));
