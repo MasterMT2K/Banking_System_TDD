@@ -29,7 +29,6 @@ public class TransferCommandValidator extends CommandValidator {
     }
 
     public boolean validateDepositToAccount(String command) {
-        String[] commandArgs = command.split(" ");
         return (validateDepositAccountID(command) && validateDepositAccountAmount(command));
     }
 
@@ -48,7 +47,6 @@ public class TransferCommandValidator extends CommandValidator {
     }
 
     public boolean validateWithdrawalFromAccount(String command) {
-        String[] commandArgs = command.split(" ");
         return (validateWithdrawalAccountID(command) && validateWithdrawalAccountAmount(command) && validateWithdrawalThisMonth(command));
     }
 
@@ -74,7 +72,7 @@ public class TransferCommandValidator extends CommandValidator {
     public boolean validateDepositAccountIDIsInteger(String command) {
         String[] commandArgs = command.split(" ");
         try {
-            int IdValue = Integer.parseInt(commandArgs[2]);
+            Integer.parseInt(commandArgs[2]);
             return true;
         } catch (NumberFormatException e) {
             return false;
@@ -84,7 +82,7 @@ public class TransferCommandValidator extends CommandValidator {
     public boolean validateWithdrawalAccountIDIsInteger(String command) {
         String[] commandArgs = command.split(" ");
         try {
-            int IdValue = Integer.parseInt(commandArgs[1]);
+            Integer.parseInt(commandArgs[1]);
             return true;
         } catch (NumberFormatException e) {
             return false;

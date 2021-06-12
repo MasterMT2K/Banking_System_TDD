@@ -6,14 +6,6 @@ public class WithdrawalCommandProcessor extends CommandProcessor {
         super(bank);
     }
 
-    @Override
-    public void checkCommandType(String command) {
-        String[] commandArgs = command.split(" ");
-        if (commandArgs[0].equalsIgnoreCase("withdraw")) {
-            withdrawFromAccount(command);
-        }
-    }
-
     public void withdrawFromAccount(String command) {
         String[] commandArgs = command.split(" ");
         String accountId = commandArgs[1];

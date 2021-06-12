@@ -2,8 +2,6 @@ package banking;
 
 public class CreateCommandValidator extends CommandValidator {
 
-    private final double MIN_APR = 0;
-    private final double MAX_APR = 10;
     private final double MIN_CDSTARTAMOUNT = 1000;
     private final double MAX_CDSTARTAMOUNT = 10000;
 
@@ -41,7 +39,6 @@ public class CreateCommandValidator extends CommandValidator {
         }
     }
 
-    @Override
     public boolean validateCreateAccountID(String command) {
         String[] commandArgs = command.split(" ");
         return (!this.bank.accountExistsByID(commandArgs[2]) && commandArgs[2].length() == 8 && validateAccountIDIsInteger(command));

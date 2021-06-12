@@ -172,7 +172,7 @@ public class AccountTest {
 
     @Test
     void savings_account_balance_withdrawal_of_greater_than_balance_returns_with_balance_of_zero() {
-        savingsAccount.withdrawal(100);
+        savingsAccount.withdrawal(1);
         assertEquals(0, savingsAccount.getAccountBalance());
     }
 
@@ -195,7 +195,7 @@ public class AccountTest {
     @Test
     void valid_cd_account_withdrawal_with_balance() {
         cdAccount.withdrawal(cdAccount.getAccountBalance());
-        assertTrue(savingsAccount.checkWithdrawalBounds(cdAccount.getAccountBalance()));
+        assertTrue(cdAccount.checkWithdrawalBounds(cdAccount.getAccountBalance()));
     }
 
     @Test
@@ -233,7 +233,7 @@ public class AccountTest {
     }
 
     @Test
-    void cd_account_withdrawal_with_greater_than_withdrawal_bounds_is_invalid() {
+    void cd_account_withdrawal_with_less_than_withdrawal_bounds_is_invalid() {
         cdAccount.withdrawal(cdAccount.getAccountBalance() - 1);
         assertFalse(savingsAccount.checkWithdrawalBounds(cdAccount.getAccountBalance() - 1));
     }
@@ -277,5 +277,4 @@ public class AccountTest {
     void cd_account_create_with_greater_than_create_bounds_is_invalid() {
         assertFalse(cdAccount.checkCreateBounds(10001));
     }
-
 }

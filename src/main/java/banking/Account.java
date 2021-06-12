@@ -1,10 +1,6 @@
 package banking;
 
 public abstract class Account {
-    private final double MIN_DEPOSIT = 0;
-    private final double MAX_DEPOSIT = 0;
-    private final double MIN_WITHDRAWAL = 0;
-    private final double MAX_WITHDRAWAL = 0;
     private final String accountType = "Account";
     protected int monthsPassed = 0;
     protected double accountApr;
