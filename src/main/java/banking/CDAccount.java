@@ -42,8 +42,18 @@ public class CDAccount extends Account {
     }
 
     @Override
+    public boolean canWithdrawThisMonth() {
+        return monthsPassed >= 12;
+    }
+
+    @Override
     public boolean checkDepositBounds(double depositAmount) {
         return false;
+    }
+
+    @Override
+    public boolean checkWithdrawalBounds(double withdrawalAmount) {
+        return !(withdrawalAmount < this.accountBalance);
     }
 
     @Override
@@ -67,5 +77,15 @@ public class CDAccount extends Account {
     @Override
     public void addMonthsPassed(int monthsPassed) {
         super.addMonthsPassed(monthsPassed);
+    }
+
+    @Override
+    public boolean getHasWithdrewThisMonth() {
+        return super.getHasWithdrewThisMonth();
+    }
+
+    @Override
+    public void setHasWithdrewThisMonth(boolean value) {
+        super.setHasWithdrewThisMonth(value);
     }
 }

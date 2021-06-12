@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class PassCommandProcessorTest {
 
@@ -33,14 +34,14 @@ public class PassCommandProcessorTest {
     void valid_checking_account_with_zero_balance_is_removed() {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
         passCommandProcessor.checkCommandType("Pass 1");
-        assertEquals(null, bank.getAccounts().get(ID));
+        assertNull(bank.getAccounts().get(ID));
     }
 
     @Test
     void valid_savings_account_with_zero_balance_is_removed() {
         bank.addAccount(ID, APR, BALANCE, SAVINGS);
         passCommandProcessor.checkCommandType("Pass 1");
-        assertEquals(null, bank.getAccounts().get(ID));
+        assertNull(bank.getAccounts().get(ID));
     }
 
     @Test
@@ -48,7 +49,7 @@ public class PassCommandProcessorTest {
         bank.addAccount(ID, APR, CDBALANCE, CD);
         bank.withdrawalFromAccount(ID, CDBALANCE);
         passCommandProcessor.checkCommandType("Pass 1");
-        assertEquals(null, bank.getAccounts().get(ID));
+        assertNull(bank.getAccounts().get(ID));
     }
 
     @Test
@@ -196,7 +197,7 @@ public class PassCommandProcessorTest {
         bank.addAccount(ID, APR, BALANCE, CHECKING);
         bank.depositToAccount(ID, SHORT_DEPOSIT_AMOUNT);
         passCommandProcessor.checkCommandType("Pass 3");
-        assertEquals(null, bank.getAccounts().get(ID));
+        assertNull(bank.getAccounts().get(ID));
     }
 
     @Test
@@ -204,7 +205,7 @@ public class PassCommandProcessorTest {
         bank.addAccount(ID, APR, BALANCE, SAVINGS);
         bank.depositToAccount(ID, SHORT_DEPOSIT_AMOUNT);
         passCommandProcessor.checkCommandType("Pass 3");
-        assertEquals(null, bank.getAccounts().get(ID));
+        assertNull(bank.getAccounts().get(ID));
     }
 
     @Test
@@ -212,7 +213,7 @@ public class PassCommandProcessorTest {
         bank.addAccount(ID, APR, CDBALANCE, CD);
         bank.withdrawalFromAccount(ID, 1950);
         passCommandProcessor.checkCommandType("Pass 3");
-        assertEquals(null, bank.getAccounts().get(ID));
+        assertNull(bank.getAccounts().get(ID));
     }
 
     @Test

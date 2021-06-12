@@ -40,4 +40,22 @@ public class DepositCommandProcessorTest {
         assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
         assertEquals(BALANCE + DEPOSIT_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
     }
+
+    @Test
+    void deposit_twice_into_checking_account_with_correct_balance() {
+        bank.addAccount(ID, APR, BALANCE, CHECKING);
+        depositCommandProcessor.checkCommandType("Deposit 12345678 100");
+        depositCommandProcessor.checkCommandType("Deposit 12345678 100");
+        assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
+        assertEquals(BALANCE + DEPOSIT_AMOUNT + DEPOSIT_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+    }
+
+    @Test
+    void deposit_twice_into_savings_account_with_correct_balance() {
+        bank.addAccount(ID, APR, BALANCE, SAVINGS);
+        depositCommandProcessor.checkCommandType("Deposit 12345678 100");
+        depositCommandProcessor.checkCommandType("Deposit 12345678 100");
+        assertEquals(ID, bank.getAccounts().get(ID).getAccountId());
+        assertEquals(BALANCE + DEPOSIT_AMOUNT + DEPOSIT_AMOUNT, bank.getAccounts().get(ID).getAccountBalance());
+    }
 }

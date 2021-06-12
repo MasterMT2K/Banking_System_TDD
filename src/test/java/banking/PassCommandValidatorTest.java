@@ -114,4 +114,10 @@ public class PassCommandValidatorTest {
         boolean actual = passCommandValidator.checkCommandType("Pass 5 months");
         assertFalse(actual);
     }
+
+    @Test
+    void pass_time_with_negative_amount_of_months_is_invalid() {
+        boolean actual = passCommandValidator.checkCommandType("Pass -10");
+        assertFalse(actual);
+    }
 }

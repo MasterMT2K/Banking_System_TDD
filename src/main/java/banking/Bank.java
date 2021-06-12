@@ -46,6 +46,14 @@ public class Bank {
         return accounts.get(accountId).checkCreateBounds(createAmount);
     }
 
+    public boolean accountWithdrawalWithinBounds(String accountId, double withdrawalAmount) {
+        return accounts.get(accountId).checkWithdrawalBounds(withdrawalAmount);
+    }
+
+    public boolean canWithdrawalFromAccountThisMonth(String accountId) {
+        return accounts.get(accountId).canWithdrawThisMonth();
+    }
+
     public void removeAccount(String accountId) {
         accounts.remove(accountId);
     }
@@ -56,5 +64,23 @@ public class Bank {
 
     public void calculateAPR(String accountId) {
         accounts.get(accountId).calculateAPR();
+    }
+
+    public void passTime(String command) {
+        String[] commandArgs = command.split(" ");
+        int numberOfMonthsToPass = Integer.parseInt(commandArgs[1]);
+        for (int monthsPassed = 0; monthsPassed < numberOfMonthsToPass; monthsPassed++) {
+            for (String accountId : getAccounts().keySet()) {
+                getAccounts().get(accountId).addMonthsPassed(1);
+                getAccounts().get(accountId).setHasWithdrewThisMonth(false);
+                if (getAccounts().get(accountId).getAccountBalance() == 0) {
+                    removeAccount(accountId);
+                } else if (getAccounts().get(accountId).getAccountBalance() < 100) {
+                    deductMinimumBalanceFee(accountId);
+                } else {
+                    calculateAPR(accountId);
+                }
+            }
+        }
     }
 }
